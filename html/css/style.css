@@ -33,16 +33,14 @@
 }
 
 .checkout__close {
-  position: absolute;
-  z-index: 1;
-  right: 0;
+  width: 53%;
+  position: relative;
 }
 
 .close {
   float: right;
   cursor: pointer;
   font-weight: bold;
-  line-height: 2px;
 }
 
 .payment {
