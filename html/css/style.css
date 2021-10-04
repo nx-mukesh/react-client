@@ -25,16 +25,36 @@
 
 .checkout__heading {
   font-weight: 400;
-
+  color: rgb(78, 77, 77);
 }
 
 .checkout__shipping {
   margin-left: 120px;
 }
 
+ul.breadcrumb {
+  list-style: none;
+}
+
+ul.breadcrumb li {
+  display: inline;
+}
+
+ul.breadcrumb li+li:before {
+  color: grey;
+  content: "/\00a0";
+}
+
+ul.breadcrumb li a {
+  color: rgb(78, 77, 77);
+  text-decoration: none;
+}
+
+
 .checkout__close {
   width: 53%;
   position: relative;
+  color: rgb(78, 77, 77);
 }
 
 .close {
