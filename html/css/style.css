@@ -2,6 +2,8 @@ body {
   background-image: url('../images/backgrounds/background.jpg');
   padding: 0;
   margin: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .container {
@@ -74,8 +76,7 @@ ul.breadcrumb li a {
   border-top: 0px;
   border: 1px solid rgb(219, 217, 217);
   display: flex;
-  flex-direction: row;
-  justify-content: start;
+  /* justify-content: start; */
 }
 
 .payment__payment-block {
@@ -182,3 +183,62 @@ input[type=text]{
   cursor: pointer;
   width: 100%;
 }
+
+@media screen and (max-width: 768px){
+  body{
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .breadcrumb{
+    display: none;
+  }
+  /* .payment, */
+  .payment__payment-block,
+  .payment__payment-wallet,
+  .payment__payment-card{
+    width: auto !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-direction: column;
+    height: auto;
+    margin: auto;
+  }
+  .payment__payment-block{
+    margin-top: 30px;
+  }
+}
+@media screen and (max-width:600px){
+  .payment__cart-block,
+  .payment__total-payment,
+  .payment__cart-product-payment,
+  .payment{
+    width: auto!important;
+    flex-direction: column-reverse;
+    justify-content: center !important;
+    height: auto;
+  }
+  .payment__add-card-form,
+  .payment__newcard-form,
+  .payment__add-new-card{
+    justify-content: center !important;
+    margin: 0px 0px;
+    width: 100% !important;
+  }
+  .payment__add-new-card{
+    margin-top: 30px;
+  }
+  .payment__total-payment{
+    margin-top: 50px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width:992px){
+  .payment,
+  .payment__cart-block{
+    width: auto !important;
+  }
+};
+@media screen and (min-width:400px){
+  .payment__payment-card img{
+    width: 100% !important;
+  }
+};

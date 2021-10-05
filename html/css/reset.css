@@ -1,8 +1,3 @@
-html {
-  color: #000;
-  background: #FFF;
-  /* background-image: url('../image/backgrounds/background.jpg'); */
-}
 
 body,
 div,
@@ -40,7 +35,7 @@ table {
 
 fieldset,
 img {
-  border: 0
+  border: 0  
 }
 
 address,
@@ -110,4 +105,4 @@ legend {
 
 #yui3-css-stamp.cssreset {
   display: none
-}
+} 
