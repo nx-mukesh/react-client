@@ -1,3 +1,9 @@
+body {
+  background-image: url('../images/backgrounds/background.jpg');
+  padding: 0;
+  margin: 0;
+}
+
 .container {
   display: flex;
   flex: content;
@@ -6,7 +12,8 @@
   color: grey;
   margin: 100px;
   font-weight: 600;
-  max-width: 70%;
+  max-width: 80%;
+  background-color: white;
 }
 
 #container-shadow {
@@ -52,7 +59,7 @@ ul.breadcrumb li a {
 
 
 .checkout__close {
-  width: 53%;
+  width: 61%;
   position: relative;
   color: rgb(78, 77, 77);
 }
@@ -72,13 +79,106 @@ ul.breadcrumb li a {
 }
 
 .payment__payment-block {
-  width: 50%;
+  width: 60%;
   padding: 12px;
 }
 
 .payment__cart-block {
-  /* background-color: rgb(233, 230, 230); */
   padding: 10px;
-  width: 50%;
-  background-color: whitesmoke;
+  width: 40%;
+  background-color: #f7f7f7;
+}
+
+.payment__cart-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-weight: 500;
+  color: grey;
+  padding: 5px;
+}
+.payment__cart-total{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: black;
+}
+
+.payment__product-image {
+  border: 5px solid #d6d6d6;
+}
+
+.payment__product-image img {
+  height: 50px;
+  width: 50px
+}
+.payment__product-details{
+  display: flex;
+  flex-direction: row;
+  padding: 2px;
+  margin: 2px;
+  justify-content: space-between;
+  width: 100%;
+}
+.payment__product-price{
+  /* width: 100%; */
+  flex: right;
+}
+.payment__total-payment{
+  bottom: 0;
+  margin-top: 150px;
+}
+
+.payment__payment-card img{
+  height: 120px;
+  width: 170px
+}
+.payment__payment-wallet{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+.payment__newcard-form{
+  max-width: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  max-width: 350px;
+  margin-left: 160px;
+  margin-top: 20px;
+}
+.payment__add-new-card{
+  justify-content: center;
+}
+.payment__add-card-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.payment__add-cvv{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+input[type=text]{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border-radius: 5px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.payment__add-new-card-button button{
+  background-color: #66c254;
+  color: white;
+  padding: 14px 20px;
+  margin: 25px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
 }
