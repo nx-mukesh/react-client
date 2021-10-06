@@ -22,17 +22,16 @@
   display: flex;
   flex-direction: row;
   padding: 12px;
-  
 }
 
 .checkout__heading {
   font-weight: 400;
   color: rgb(78, 77, 77);
-  flex:20%;
+  flex: 20%;
 }
 
 .checkout__shipping {
-  flex:70%;
+  flex: 70%;
 }
 
 ul.breadcrumb {
@@ -61,7 +60,8 @@ ul.breadcrumb li a {
   cursor: pointer;
   flex: 10%;
 }
-.checkout__close_btn{
+
+.checkout__close_btn {
   position: relative;
 }
 
