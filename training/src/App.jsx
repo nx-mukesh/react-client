@@ -1,8 +1,9 @@
 import React from 'react';
+import TextFieldDemo from './pages/TestFieldDemo/TextFieldDemo';
 
 const App = () => (
-  <div>
-    <h2>Hello React</h2>
+  <div className="app">
+    <TextFieldDemo/>
   </div>
 );
 
