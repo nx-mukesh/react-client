@@ -2,14 +2,9 @@
 <html lang="en">
   <head>
     <title>checkout</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./css/reset.css" />
-    <link rel="stylesheet" href="./css/all.min.css" />
-    <link
-      rel="stylesheet"
-      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="./css/fontAwesome.css"/>
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
@@ -26,7 +21,9 @@
           </ul>
         </div>
         <div class="checkout__close">
-          <span class="close"><i class="fas fa-window-close"></i></span>
+          <button class="checkout__close_btn">
+            <span>&#10006;</span>
+        </button>
         </div>
       </div>
       <div class="payment">
@@ -48,8 +45,10 @@
             </div>
           </div>
           <div class="payment__add-new-card">
-            <h4>Add New Card</h4>
-            <hr />
+            <div class="payment__add-new-card-text">
+              <h4>Add New Card</h4>
+              <hr />
+            </div>
             <div class="payment__newcard-form">
               <form class="payment__add-card-form">
                 <div class="payment__input">
@@ -59,8 +58,8 @@
                   <input type="text" placeholder="xxx-xxxx-xxxx-xxxx" />
                 </div>
                 <div class="payment__add-cvv">
-                  <input type="text" placeholder="MM/YY" />
-                  <input type="text" placeholder="CVV" />
+                    <input type="text" placeholder="MM/YY" /> &nbsp;
+                    <input type="text" placeholder="CVV" />
                 </div>
                 <div class="payment__add-new-card-button">
                   <button type="submit">Continue</button>

@@ -10,10 +10,11 @@ body {
   flex-direction: column;
   justify-content: space-around;
   color: grey;
-  margin: 100px;
+  background-color: white;
+  margin: 160px;
   font-weight: 600;
   max-width: 80%;
-  background-color: white;
+  width: 100%;
 }
 
 #container-shadow {
@@ -26,17 +27,18 @@ body {
   border: 1px solid rgb(219, 217, 217);
   border-bottom: 0;
   display: flex;
-  flex-direction: row;
   padding: 12px;
+  
 }
 
 .checkout__heading {
   font-weight: 400;
   color: rgb(78, 77, 77);
+  flex:20%;
 }
 
 .checkout__shipping {
-  margin-left: 120px;
+  flex:70%;
 }
 
 ul.breadcrumb {
@@ -57,17 +59,16 @@ ul.breadcrumb li a {
   text-decoration: none;
 }
 
-
 .checkout__close {
-  width: 61%;
+  display: flex;
   position: relative;
   color: rgb(78, 77, 77);
-}
-
-.close {
-  float: right;
+  justify-content: end;
   cursor: pointer;
-  font-weight: bold;
+  flex: 10%;
+}
+.checkout__close_btn{
+  position: relative;
 }
 
 .payment {
@@ -75,17 +76,18 @@ ul.breadcrumb li a {
   border: 1px solid rgb(219, 217, 217);
   display: flex;
   flex-direction: row;
-  justify-content: start;
 }
 
 .payment__payment-block {
-  width: 60%;
+  flex: 60%;
   padding: 12px;
+  margin-top: 1rem;
 }
 
 .payment__cart-block {
   padding: 10px;
-  width: 40%;
+  /* width: 40%; */
+  flex: 40%;
   background-color: #f7f7f7;
 }
 
@@ -135,30 +137,34 @@ ul.breadcrumb li a {
 }
 .payment__payment-wallet{
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-evenly;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
+  margin: 1rem;
 }
 .payment__newcard-form{
-  max-width: 350px;
+  margin-top: 2rem;
   display: flex;
-  align-items: center;
-  justify-content: space-around;
-  max-width: 350px;
-  margin-left: 160px;
-  margin-top: 20px;
+  justify-content: center;
+  /* max-width: 350px; */
 }
 .payment__add-new-card{
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
   justify-content: center;
 }
 .payment__add-card-form{
   display: flex;
   flex-direction: column;
   justify-content: center;
+  max-width: 350px;
 }
 .payment__add-cvv{
   display: flex;
+  width: 100%;
+  flex-wrap: nowrap;
   flex-direction: row;
   justify-content: space-between;
 }
