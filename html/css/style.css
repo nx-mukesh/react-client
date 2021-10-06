@@ -4,9 +4,10 @@
   flex-direction: column;
   justify-content: space-around;
   color: grey;
-  margin: 100px;
+  margin: 170px;
   font-weight: 600;
   max-width: 70%;
+  width: 100%;
 }
 
 #container-shadow {
@@ -21,15 +22,17 @@
   display: flex;
   flex-direction: row;
   padding: 12px;
+  
 }
 
 .checkout__heading {
   font-weight: 400;
   color: rgb(78, 77, 77);
+  flex:20%;
 }
 
 .checkout__shipping {
-  margin-left: 120px;
+  flex:70%;
 }
 
 ul.breadcrumb {
@@ -50,17 +53,16 @@ ul.breadcrumb li a {
   text-decoration: none;
 }
 
-
 .checkout__close {
-  width: 53%;
+  display: flex;
   position: relative;
   color: rgb(78, 77, 77);
-}
-
-.close {
-  float: right;
+  justify-content: end;
   cursor: pointer;
-  font-weight: bold;
+  flex: 10%;
+}
+.checkout__close_btn{
+  position: relative;
 }
 
 .payment {
