@@ -218,7 +218,7 @@ input[type=text] {
   }
 }
 
-@media screen and (max-width: 992) {
+@media screen and (max-width: 992px) {
   .container {
     margin-right: 20px;
     margin-left: 20px;
