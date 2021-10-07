@@ -1,17 +1,25 @@
+html {}
+
 body {
-  background-image: url('../images/backgrounds/background.jpg');
   padding: 0;
   margin: 0;
+  background-image: url('../images/background.jpg');
+}
+
+.cover__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
+  /* margin: 160px; */
   display: flex;
   flex: content;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   color: grey;
   background-color: white;
-  margin: 160px;
   font-weight: 600;
   max-width: 80%;
   width: 100%;
@@ -99,7 +107,8 @@ ul.breadcrumb li a {
   color: grey;
   padding: 5px;
 }
-.payment__cart-total{
+
+.payment__cart-total {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -114,7 +123,8 @@ ul.breadcrumb li a {
   height: 50px;
   width: 50px
 }
-.payment__product-details{
+
+.payment__product-details {
   display: flex;
   flex-direction: row;
   padding: 2px;
@@ -122,46 +132,51 @@ ul.breadcrumb li a {
   justify-content: space-between;
   width: 100%;
 }
-.payment__product-price{
-  /* width: 100%; */
+
+.payment__product-price {
   flex: right;
 }
-.payment__total-payment{
+
+.payment__total-payment {
   bottom: 0;
   margin-top: 150px;
 }
 
-.payment__payment-card img{
-  height: 120px;
-  width: 170px
+.payment__payment-card img {
+  max-height: 120px;
+  max-width: 120px
 }
-.payment__payment-wallet{
+
+.payment__payment-wallet {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-evenly;
   margin: 1rem;
 }
-.payment__newcard-form{
+
+.payment__newcard-form {
   margin-top: 2rem;
   display: flex;
   justify-content: center;
-  /* max-width: 350px; */
 }
-.payment__add-new-card{
+
+.payment__add-new-card {
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: center;
 }
-.payment__add-card-form{
+
+.payment__add-card-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   max-width: 350px;
 }
-.payment__add-cvv{
+
+.payment__add-cvv {
   display: flex;
   width: 100%;
   flex-wrap: nowrap;
@@ -169,7 +184,7 @@ ul.breadcrumb li a {
   justify-content: space-between;
 }
 
-input[type=text]{
+input[type=text] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -179,7 +194,7 @@ input[type=text]{
   box-sizing: border-box;
 }
 
-.payment__add-new-card-button button{
+.payment__add-new-card-button button {
   background-color: #66c254;
   color: white;
   padding: 14px 20px;
@@ -187,4 +202,101 @@ input[type=text]{
   border: none;
   cursor: pointer;
   width: 100%;
+}
+
+@media screen and (min-width: 992px) {
+  .container {
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+
+  .payment__payment-block{
+    flex: 66.6%
+  }
+  .payment__cart-block {
+    flex: 33.3%
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .container {
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .breadcrumb {
+    display: none;
+  }
+
+  .payment__payment-block,
+  .payment__payment-wallet,
+  .payment__payment-card {
+    width: auto !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-direction: column;
+    height: auto;
+    margin: auto;
+  }
+
+  .payment__payment-block {
+    margin-top: 30px;
+  }
+
+  .payment__payment-block,
+  .payment__cart-block {
+    flex: 50%
+  }
+}
+
+@media screen and (max-width:600px) {
+
+  .payment__cart-block,
+  .payment__total-payment,
+  .payment__cart-product-payment,
+  .payment {
+    width: auto !important;
+    flex-direction: column-reverse;
+    justify-content: center !important;
+    height: auto;
+  }
+  .payment__payment-wallet{
+    display: flex;
+    flex-direction: row !important;
+  }
+  .payment__payment-wallet img{
+    margin: 5px;
+  }
+
+  .payment__add-card-form,
+  .payment__newcard-form,
+  .payment__add-new-card {
+    justify-content: center !important;
+    margin: 0px 0px;
+    width: 100% !important;
+  }
+
+  .payment__add-new-card {
+    margin-top: 30px;
+  }
+
+  .payment__total-payment {
+    margin-top: 50px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width:992px) {
+  .payment__cart-block {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width:400px) {
+  .payment__payment-wallet,
+  .payment__payment-card img {
+    width: 100% !important;
+    max-width: fit-content;
+  }
 }
