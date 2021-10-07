@@ -1,14 +1,22 @@
+html {}
+
 body {
-  background-image: url('../images/backgrounds/background.jpg');
   padding: 0;
   margin: 0;
+  background-image: url('../images/background.jpg');
+}
+
+.cover__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
   display: flex;
   flex: content;
   flex-direction: column;
-  justify-content: space-around;
+  /* justify-content: center; */
   color: grey;
   background-color: white;
   margin: 160px;
@@ -28,7 +36,6 @@ body {
   border-bottom: 0;
   display: flex;
   padding: 12px;
-
 }
 
 .checkout__heading {
@@ -199,12 +206,26 @@ input[type=text] {
   width: 100%;
 }
 
-@media screen and (max-width: 768px) {
-  body {
-    margin: 0 !important;
-    padding: 0 !important;
+@media screen and (min-width: 992px) {
+  .container {
+    margin-left: 100px;
+    margin-right: 100px;
   }
 
+  .payment__payment-block,
+  .payment__cart-block {
+    flex: 50%
+  }
+}
+
+@media screen and (max-width: 992) {
+  .container {
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
   .breadcrumb {
     display: none;
   }
@@ -222,6 +243,11 @@ input[type=text] {
 
   .payment__payment-block {
     margin-top: 30px;
+  }
+
+  .payment__payment-block,
+  .payment__cart-block {
+    flex: 50%
   }
 }
 
@@ -255,16 +281,12 @@ input[type=text] {
 }
 
 @media screen and (min-width: 768px) and (max-width:992px) {
-
-  .payment,
   .payment__cart-block {
-    width: auto !important;
+    width: 100%;
   }
 }
 
-;
-
-@media screen and (min-width:400px) {
+@media screen and (max-width:400px) {
   .payment__payment-card img {
     width: 100% !important;
   }
