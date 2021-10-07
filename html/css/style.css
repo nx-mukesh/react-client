@@ -13,13 +13,13 @@ body {
 }
 
 .container {
+  /* margin: 160px; */
   display: flex;
   flex: content;
   flex-direction: column;
-  /* justify-content: center; */
+  justify-content: center;
   color: grey;
   background-color: white;
-  margin: 160px;
   font-weight: 600;
   max-width: 80%;
   width: 100%;
@@ -134,7 +134,6 @@ ul.breadcrumb li a {
 }
 
 .payment__product-price {
-  /* width: 100%; */
   flex: right;
 }
 
@@ -144,8 +143,8 @@ ul.breadcrumb li a {
 }
 
 .payment__payment-card img {
-  height: 120px;
-  width: 170px
+  max-height: 120px;
+  max-width: 120px
 }
 
 .payment__payment-wallet {
@@ -160,7 +159,6 @@ ul.breadcrumb li a {
   margin-top: 2rem;
   display: flex;
   justify-content: center;
-  /* max-width: 350px; */
 }
 
 .payment__add-new-card {
@@ -212,9 +210,11 @@ input[type=text] {
     margin-right: 100px;
   }
 
-  .payment__payment-block,
+  .payment__payment-block{
+    flex: 66.6%
+  }
   .payment__cart-block {
-    flex: 50%
+    flex: 33.3%
   }
 }
 
@@ -262,6 +262,13 @@ input[type=text] {
     justify-content: center !important;
     height: auto;
   }
+  .payment__payment-wallet{
+    display: flex;
+    flex-direction: row !important;
+  }
+  .payment__payment-wallet img{
+    margin: 5px;
+  }
 
   .payment__add-card-form,
   .payment__newcard-form,
@@ -287,7 +294,9 @@ input[type=text] {
 }
 
 @media screen and (max-width:400px) {
+  .payment__payment-wallet,
   .payment__payment-card img {
     width: 100% !important;
+    max-width: fit-content;
   }
 }
