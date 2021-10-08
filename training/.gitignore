@@ -1,3 +1,12 @@
 .env
 node_modules
 build
+
+.editorconfig
+.eslintrc
+.huskyrc
+.prettierignore
+.prettierrc.js
+package-lock.json
+
+../.vscode
