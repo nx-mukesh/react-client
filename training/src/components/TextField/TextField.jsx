@@ -1,19 +1,16 @@
 import React from 'react';
 import { style } from './style';
+import PropTypes from 'prop-types';
 
 const TextField = (props) => {
-  const { value, error, title, disable } = props;
+  const { value, error, disable } = props;
   return (
     <div className="textField" style={style.textField}>
-      <label className="textField__heading" style={style.textField__heading}>
-        {title}
-      </label>
-      <br />
       <input
         className="testField__input"
         style={style.testField__input}
         type="text"
-        placeholder={value}
+        value={value}
         disabled={disable}
       />
       <label className="testField__error" style={style.testField__error}>
@@ -21,6 +18,12 @@ const TextField = (props) => {
       </label>
     </div>
   );
+};
+
+TextField.propTypes = {
+  value: PropTypes.string,
+  error: PropTypes.string,
+  disable: PropTypes.bool,
 };
 
 export default TextField;
