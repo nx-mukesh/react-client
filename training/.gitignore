@@ -6,16 +6,14 @@
 .pnp.js
 
 # other
-.env
-.editorconfig
-.eslintrc
-.huskyrc
-.prettierignore
-.prettierrc.js
-package-lock.json
+/.env
+/.editorconfig
+/.eslintrc
+/.huskyrc
+/.prettierignore
+/.prettierrc.js
+/package-lock.json
 /.vscode
-
-
 
 
 # testing
