@@ -3,7 +3,7 @@ import TextFieldDemo from './pages';
 
 const App = () => (
   <div className="app">
-    <TextFieldDemo/>
+    <TextFieldDemo />
   </div>
 );
 
