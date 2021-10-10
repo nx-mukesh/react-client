@@ -16,7 +16,7 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "test:c": "jest --coverage --coverageDirectory=output/coverage/jest",
+        "test:c": "jest --coverage --coverageDirectory=coverage/jest",
         "eject": "react-scripts eject",
         "lint": "eslint src/**/*.js src/**/*.jsx",
         "lint:fix": "npm run lint -- --fix",
