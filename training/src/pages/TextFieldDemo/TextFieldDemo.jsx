@@ -7,7 +7,7 @@ const TextFieldDemo = () => (
       <span>
         <b> This is Disable Input</b>
       </span>
-      <TextField value="Disable Input" disable error="" />
+      <TextField value="Disable Input" error="" disable />
     </div>
     <div className="textFieldDemo__valid">
       <span>

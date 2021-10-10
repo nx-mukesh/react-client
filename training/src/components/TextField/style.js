@@ -6,14 +6,14 @@ export const style = {
   textField__heading: {
     color: 'black',
   },
-  testField__input : {
+  testField__input: {
     padding: '10px',
     margin: '15px 0px 15px 0px',
     width: '100%',
-    "border-radius":'5px',
-    border:"1px solid red"
+    'border-radius': '5px',
+    border: '1px solid red',
   },
-  testField__error:{
-    color:'red'
-  }
+  testField__error: {
+    color: 'red',
+  },
 };
