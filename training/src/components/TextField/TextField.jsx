@@ -3,19 +3,21 @@ import PropTypes from 'prop-types';
 import { style } from './style';
 
 const TextField = (props) => {
-  const { handleOnChange, error, value } = props;
+  const { onChange, error, value } = props;
+  console.log(value)
   return (
     <div className="textField" style={style.textField}>
+      <label htmlFor="inputName">Name</label>
       <input
         className="testField__input"
         style={style.testField__input}
         type="text"
         value={value}
-        name="input"
-        onChange={handleOnChange}
+        name='inputName'
+        onChange={onChange}
       />
       <span className="testField__error" style={style.testField__error}>
-        {error}
+        {/* {error} */}
       </span>
     </div>
   );
@@ -24,7 +26,7 @@ const TextField = (props) => {
 TextField.propTypes = {
   value: PropTypes.string.isRequired,
   error: PropTypes.string,
-  handleOnChange: PropTypes.fun.isRequired,
+  handleOnChange: PropTypes.fun,
 };
 
 TextField.defaultProps = {

@@ -1,9 +1,10 @@
 import React from 'react';
-import { TextFieldDemo } from './pages';
+import { TextFieldDemo, InputDemo } from './pages';
 
 const App = () => (
   <div className="app">
-    <TextFieldDemo />
+    {/* <TextFieldDemo /> */}
+    <InputDemo/>
   </div>
 );
 
