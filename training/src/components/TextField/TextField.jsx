@@ -27,8 +27,8 @@ TextField.propTypes = {
 };
 
 TextField.defaultProps = {
-  error: 'default error',
-  value: 'default value',
+  error: '',
+  value: '',
   disable: false,
 };
 
