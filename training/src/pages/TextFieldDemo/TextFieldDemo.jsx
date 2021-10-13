@@ -18,7 +18,7 @@ const TextFieldDemo = () => {
           banners={IMAGE_LIST}
           defaultBanner="default.png"
           duration={2000}
-          height={200}
+          height={300}
           random
         />
       </div>

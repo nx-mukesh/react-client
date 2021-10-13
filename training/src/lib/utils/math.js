@@ -1,4 +1,4 @@
-export const gerRandomNumber = () => Math.floor(Math.random() * 10 + 1);
+export const gerRandomNumber = () => Math.floor(Math.random() * 5 + 1);
 
 export const getNextRoundRobin = (total, current) => {
   if (total <= current) {
