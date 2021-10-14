@@ -1,12 +1,13 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { style } from './style';
+import {GAMES, FOOTBALL_PLAYERS_ROLE, CRICKET_PLAYERS_ROLE} from '../../configs/constants';
 
 const RadioGroup = (props) => {
   const { error, onChange, options } = props;
   const displayPlayerRole = (options) => {
     {
-      if (options[0].label === 'football') {
+      if (options[0].label === GAMES.football) {
         return (
           <div className="playerRole">
             <div className="radioButton__football">
@@ -15,7 +16,7 @@ const RadioGroup = (props) => {
                 type="radio"
                 id="defender"
                 name="player"
-                value="defender"
+                value={FOOTBALL_PLAYERS_ROLE.defender}
                 onChange={onChange}
               />
               <label htmlFor="defender">Defender</label>
@@ -26,7 +27,7 @@ const RadioGroup = (props) => {
                 type="radio"
                 id="striker"
                 name="player"
-                value="striker"
+                value={FOOTBALL_PLAYERS_ROLE.striker}
                 onChange={onChange}
               />
               <label htmlFor="striker">Striker</label>
@@ -34,7 +35,7 @@ const RadioGroup = (props) => {
           </div>
         );
       }
-      if (options[0].label === 'cricket') {
+      if (options[0].label === GAMES.cricket) {
         return (
           <div className="radioButton__cricket">
             <div>
@@ -43,7 +44,7 @@ const RadioGroup = (props) => {
                 type="radio"
                 id="wicket_keeper"
                 name="player"
-                value="wicket keeper"
+                value={CRICKET_PLAYERS_ROLE.wicketKeeper}
                 onChange={onChange}
               />
               <label htmlFor="wicket_keeper">Wicket Keeper</label>
@@ -54,7 +55,7 @@ const RadioGroup = (props) => {
                 type="radio"
                 id="batsman"
                 name="player"
-                value="batsman"
+                value={CRICKET_PLAYERS_ROLE.batsman}
                 onChange={onChange}
               />
               <label htmlFor="batsman">Batsman</label>
@@ -65,7 +66,7 @@ const RadioGroup = (props) => {
                 type="radio"
                 id="bowler"
                 name="player"
-                value="bowler"
+                value={CRICKET_PLAYERS_ROLE.bowler}
                 onChange={onChange}
               />
               <label htmlFor="bowler">Bowler</label>
@@ -76,7 +77,7 @@ const RadioGroup = (props) => {
                 type="radio"
                 id="all_rounder"
                 name="player"
-                value="all rounder"
+                value={CRICKET_PLAYERS_ROLE.allRounder}
                 onChange={onChange}
               />
               <label htmlFor="all_rounder">All Rounder</label>

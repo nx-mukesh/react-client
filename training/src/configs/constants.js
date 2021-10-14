@@ -6,11 +6,11 @@ export const GAMES = {
   cricket: 'cricket',
 };
 
-export const FOOTBALL_PLAYER = {
+export const FOOTBALL_PLAYERS_ROLE = {
   defender: 'Defender',
   striker: 'Striker',
 };
-export const CRICKET_PLAYER = {
+export const CRICKET_PLAYERS_ROLE = {
   batsman: 'Batsman',
   bowler: 'Bowler',
   wicketKeeper: 'Wicket Keeper',
