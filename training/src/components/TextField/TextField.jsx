@@ -32,7 +32,7 @@ TextField.propTypes = {
 TextField.defaultProps = {
   error: '',
   value: '',
-  handleOnChange: ()=>{},
+  handleOnChange: () => {},
 };
 
 export default TextField;

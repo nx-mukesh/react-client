@@ -85,6 +85,7 @@ const RadioGroup = (props) => {
           </div>
         );
       }
+      return null;
     }
   };
 
