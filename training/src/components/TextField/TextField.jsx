@@ -4,7 +4,6 @@ import { style } from './style';
 
 const TextField = (props) => {
   const { onChange, error, value } = props;
-  console.log(value)
   return (
     <div className="textField" style={style.textField}>
       <label htmlFor="inputName">Name</label>
@@ -13,11 +12,12 @@ const TextField = (props) => {
         style={style.testField__input}
         type="text"
         value={value}
-        name='inputName'
+        name="inputName"
+        id="inputName"
         onChange={onChange}
       />
       <span className="testField__error" style={style.testField__error}>
-        {/* {error} */}
+        {error}
       </span>
     </div>
   );

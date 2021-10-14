@@ -3,18 +3,12 @@ import { PropTypes } from 'prop-types';
 import { style } from './style';
 
 const RadioGroup = (props) => {
-  const { error, value, onChange, options } = props;
-  console.log(options[0].label);
+  const { error, onChange, options } = props;
   const displayPlayerRole = (options) => {
     {
       if (options[0].label === 'football') {
         return (
-          <fieldset
-            className="schedule-weekday"
-            value={value}
-            // onChange={(event) => handleWeekdayChange(event)}
-            onChange={onChange}
-          >
+          <div className="playerRole">
             <div className="radioButton__football">
               <input
                 style={style.input}
@@ -22,10 +16,9 @@ const RadioGroup = (props) => {
                 id="defender"
                 name="player"
                 value="defender"
-                checked={value}
                 onChange={onChange}
               />
-              <label for="defender">Defender</label>
+              <label htmlFor="defender">Defender</label>
             </div>
             <div>
               <input
@@ -33,13 +26,12 @@ const RadioGroup = (props) => {
                 type="radio"
                 id="striker"
                 name="player"
-                checked={value}
                 value="striker"
                 onChange={onChange}
               />
-              <label for="striker">Striker</label>
+              <label htmlFor="striker">Striker</label>
             </div>
-          </fieldset>
+          </div>
         );
       }
       if (options[0].label === 'cricket') {
@@ -51,10 +43,10 @@ const RadioGroup = (props) => {
                 type="radio"
                 id="wicket_keeper"
                 name="player"
-                value={value}
+                value="wicket keeper"
                 onChange={onChange}
               />
-              <label for="wicket_keeper">Wicket Keeper</label>
+              <label htmlFor="wicket_keeper">Wicket Keeper</label>
             </div>
             <div>
               <input
@@ -62,10 +54,10 @@ const RadioGroup = (props) => {
                 type="radio"
                 id="batsman"
                 name="player"
-                value={value}
+                value="batsman"
                 onChange={onChange}
               />
-              <label for="batsman">Batsman</label>
+              <label htmlFor="batsman">Batsman</label>
             </div>
             <div>
               <input
@@ -73,10 +65,10 @@ const RadioGroup = (props) => {
                 type="radio"
                 id="bowler"
                 name="player"
-                value={value}
+                value="bowler"
                 onChange={onChange}
               />
-              <label for="bowler">Bowler</label>
+              <label htmlFor="bowler">Bowler</label>
             </div>
             <div>
               <input
@@ -84,10 +76,10 @@ const RadioGroup = (props) => {
                 type="radio"
                 id="all_rounder"
                 name="player"
-                value={value}
+                value="all rounder"
                 onChange={onChange}
               />
-              <label for="all_rounder">All Rounder</label>
+              <label htmlFor="all_rounder">All Rounder</label>
             </div>
           </div>
         );
@@ -99,6 +91,9 @@ const RadioGroup = (props) => {
     <div className="radioGroup">
       <h4 style={style.input}>What you do?</h4>
       {displayPlayerRole(options)}
+      <span className="testField__error" style={style.testField__error}>
+        {error}
+      </span>
     </div>
   );
 };

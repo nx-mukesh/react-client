@@ -23,15 +23,19 @@ const InputDemo = () => {
     const { value } = event.target;
     setFootball(value);
   };
-  console.log({ name, sport, cricket, football });
-  console.log(football)
+  console.log({
+    name: name,
+    sport: sport,
+    cricket: cricket,
+    football: football,
+  });
   const handleRadio = () => {
     if (sport === 'football') {
       return (
         <RadioGroup
-          onClick={handleFootball}
+          onChange={handleFootball}
           value={football}
-          error="no error"
+          error=""
           options={[{ label: 'football' }, { value: 'football' }]}
         />
       );
@@ -39,24 +43,24 @@ const InputDemo = () => {
     if (sport === 'cricket') {
       return (
         <RadioGroup
-          onClick={handleCricket}
+          onChange={handleCricket}
           value={cricket}
-          error="no error"
+          error=""
           options={[{ label: 'cricket' }, { value: 'cricket' }]}
         />
       );
     }
-    return;
+    return null;
   };
   return (
     <div className="inputDemo">
-      <TextField onChange={handleNameChange} value={name} error="no error" />
+      <TextField onChange={handleNameChange} value={name} error="" />
       <SelectField
         onChange={handleSportChange}
         value={sport}
-        error="no error"
-        // options={[{ label }, { value }]}
-        defaultText=""
+        error=""
+        options={[{ label: 'Select the game you play' }, { value: 'Sport' }]}
+        defaultText="Select"
       />
       {handleRadio(sport)}
     </div>
