@@ -3,15 +3,18 @@ import PropTypes from 'prop-types';
 import { style } from './style';
 
 const TextField = (props) => {
-  const { value, error, disable } = props;
+  const { onChange, error, value } = props;
   return (
     <div className="textField" style={style.textField}>
+      <label htmlFor="inputName">Name</label>
       <input
         className="testField__input"
         style={style.testField__input}
         type="text"
         value={value}
-        disabled={disable}
+        name="inputName"
+        id="inputName"
+        onChange={onChange}
       />
       <span className="testField__error" style={style.testField__error}>
         {error}
@@ -21,15 +24,15 @@ const TextField = (props) => {
 };
 
 TextField.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.string.isRequired,
   error: PropTypes.string,
-  disable: PropTypes.bool,
+  handleOnChange: PropTypes.func,
 };
 
 TextField.defaultProps = {
   error: '',
   value: '',
-  disable: false,
+  handleOnChange: () => {},
 };
 
 export default TextField;

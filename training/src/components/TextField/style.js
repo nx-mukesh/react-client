@@ -1,6 +1,9 @@
 export const style = {
   textField: {
-    width: '100%',
+    display:"flex",
+    flexDirection:"column",
+    maxWidth:"100vh",
+    margin:"20px"
     // border:"red"
   },
   textField__heading: {
