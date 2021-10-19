@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { style } from './style';
 
 const TextField = (props) => {
-  const { onChange, error, value } = props;
+  const { onChange, error, value, onBlur, register } = props;
+
   return (
     <div className="textField" style={style.textField}>
       <label htmlFor="inputName">Name</label>
@@ -15,6 +16,8 @@ const TextField = (props) => {
         name="inputName"
         id="inputName"
         onChange={onChange}
+        onBlur={onBlur}
+        ref={register}
       />
       <span className="testField__error" style={style.testField__error}>
         {error}
