@@ -19,6 +19,6 @@ export const validationSchema = yup.object().shape({
  * @return
  */
 export const loginSchema = yup.object().shape({
-  email:yup.string().email('email address must be a valid email').required('email is required field'),
-  password:yup.string().required('password is required')
+  email:yup.string().email('Email Address must be a valid email').required('Email is required field'),
+  password:yup.string().required('Password is required')
 })

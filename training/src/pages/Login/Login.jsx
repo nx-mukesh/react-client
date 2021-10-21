@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { loginSchema } from '../../lib/utils/validation';
 import {
   Button,
@@ -12,26 +12,50 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
 
-
-
-
-
 const Login = () => {
   const [userInput, setUserInput] = useState({
-    email:'',
-    password:''
+    email: '',
+    password: '',
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState({});
+  const [touched] = useState({});
+  const [disabled, setDisabled] = useState(false);
+
+
+  useEffect(() => {
+    console.log(userInput)
+    console.log(touched);
+    console.log(error);
+    if (Object.keys(error).length === 0 && touched) {
+      setDisabled(true);
+    }
+  }, [touched]);
 
   // handler
-  const handleOnBlur = (e) => {
-    console.log('onblur');
+  const handleError = (values) => {
+    const { email, password } = values;
+    loginSchema
+      .validate({ email, password }, { abortEarly: false })
+      .then(() => {
+        setUserInput({ ...values });
+      })
+      .catch((error) => {
+        const errorSchema = {};
+        error.inner.forEach((err) => {
+          errorSchema[err.path] = err.message;
+          return setError(errorSchema);
+        });
+      });
   };
+
+  const handleOnBlur = (e, field) => {
+    touched[field] = true;
+    handleError(userInput);
+  };
+
   const handleOnChange = (e) => {
-    const { value } = e.target;
-    setUserInput({ ...userInput, [e.target.name]: value });
-    loginSchema.validate(userInput)
-    console.log(userInput);
+    const { name, value } = e.target;
+    setUserInput({ ...userInput, [name]: value });
   };
 
   const handleShowPassword = () => {
@@ -39,6 +63,11 @@ const Login = () => {
       ...userInput,
       showPassword: !userInput.password,
     });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(userInput)
   };
 
   return (
@@ -62,39 +91,46 @@ const Login = () => {
                 Login
               </Typography>
             </Grid>
-            <div className="login__email">
-              <TextField
-                id="outlined-required"
-                sx={{ mb: 3 }}
-                fullWidth
-                name="email"
-                label="Email Address"
-                onBlur={handleOnBlur}
-                onChange={handleOnChange}
-              />
-              <FormHelperText>{error}</FormHelperText>
-            </div>
-            <div className="login__password">
-              <TextField
-                label="Password"
-                type={userInput.password ? 'text' : 'password'}
-                value={userInput.password}
-                sx={{ mb: 5 }}
-                id="outlined-password-input"
-                fullWidth
-                name="password"
-                autoComplete="current-password"
-                onBlur={handleOnBlur}
-                onChange={handleOnChange}
-                endAdornment={
-                  <Visibility onClick={handleShowPassword}/>
-                }
-              />
-              <FormHelperText>{error}</FormHelperText>
-            </div>
-            <Button variant="contained" fullWidth disabled={false}>
-              SIGN IN
-            </Button>
+            <form onSubmit={handleSubmit}>
+              <div className="login__email">
+                <TextField
+                  label="Email Address"
+                  type="email"
+                  id="outlined-email-input"
+                  sx={{ mb: 3 }}
+                  fullWidth
+                  error={error.email}
+                  name="email"
+                  color="secondary"
+                  onBlur={(e) => {
+                    handleOnBlur(e, 'email');
+                  }}
+                  onChange={handleOnChange}
+                  helperText={error.email}
+                />
+              </div>
+              <div className="login__password">
+                <TextField
+                  label="Password"
+                  id="outlined-password-input"
+                  sx={{ mb: 5 }}
+                  fullWidth
+                  error={error.password}
+                  name="password"
+                  color="secondary"
+                  value={userInput.password}
+                  autoComplete="current-password"
+                  onBlur={(e) => {
+                    handleOnBlur(e, 'password');
+                  }}
+                  onChange={handleOnChange}
+                  helperText={error.password}
+                />
+              </div>
+              <Button variant="contained" type="submit" fullWidth disabled={disabled}>
+                SIGN IN
+              </Button>
+            </form>
           </FormControl>
         </Grid>
       </Grid>
