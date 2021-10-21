@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AddDialog } from './components/AddDialog';
 import Button from '@mui/material/Button';
+import { Navbar } from '../components';
 
 const Trainee = () => {
   const [open, setOpen] = useState(false);
@@ -18,6 +19,7 @@ const Trainee = () => {
   };
   return (
     <div className="Trainee">
+      <Navbar />
       <div className="trainee__Add-traineeBtn">
         <Button
           style={{

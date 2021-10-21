@@ -1,12 +1,13 @@
 import React from 'react';
-import { InputDemo } from './pages';
-import { Trainee } from './pages';
+// import { InputDemo } from './pages';
+import { Login } from './pages';
 
 const App = () => (
   <div className="app">
     {/* <TextFieldDemo /> */}
     {/* <InputDemo /> */}
-    <Trainee />
+    {/* <Trainee /> */}
+    <Login/>
   </div>
 );
 
