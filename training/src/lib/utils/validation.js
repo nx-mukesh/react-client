@@ -11,14 +11,17 @@ export const validationSchema = yup.object().shape({
 
 // export const hasError = (value) => {};
 
-
-
 /**
  * @description validation for login form
  * @input valid email and password
  * @return
  */
 export const loginSchema = yup.object().shape({
-  email:yup.string().email('Email Address must be a valid email').required('Email is required field'),
-  password:yup.string().required('Password is required')
-})
+  email: yup
+    .string()
+    .email('Email Address must be a valid email')
+    .required('Email is required field'),
+  password: yup
+    .string()
+    .required('Password is required'),
+});

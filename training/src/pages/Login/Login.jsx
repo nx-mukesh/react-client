@@ -8,8 +8,12 @@ import {
   FormHelperText,
   TextField,
   CssBaseline,
+  InputAdornment,
+  IconButton
 } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import EmailIcon from '@mui/icons-material/Email';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
 
 const Login = () => {
@@ -19,17 +23,14 @@ const Login = () => {
   });
   const [error, setError] = useState({});
   const [touched] = useState({});
-  const [disabled, setDisabled] = useState(false);
-
+  const [disabled, setDisabled] = useState(true);
+  const [hide, setHide] = useState(true)
 
   useEffect(() => {
-    console.log(userInput)
-    console.log(touched);
-    console.log(error);
-    if (Object.keys(error).length === 0 && touched) {
-      setDisabled(true);
+    if (touched.email && touched.password) {
+      setDisabled(false);
     }
-  }, [touched]);
+  }, [error]);
 
   // handler
   const handleError = (values) => {
@@ -50,6 +51,7 @@ const Login = () => {
 
   const handleOnBlur = (e, field) => {
     touched[field] = true;
+    setError({});
     handleError(userInput);
   };
 
@@ -67,7 +69,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(userInput)
+    console.log(userInput);
   };
 
   return (
@@ -107,6 +109,13 @@ const Login = () => {
                   }}
                   onChange={handleOnChange}
                   helperText={error.email}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <EmailIcon />
+                      </InputAdornment>
+                    ),
+                  }}
                 />
               </div>
               <div className="login__password">
@@ -114,6 +123,7 @@ const Login = () => {
                   label="Password"
                   id="outlined-password-input"
                   sx={{ mb: 5 }}
+                  type="password"
                   fullWidth
                   error={error.password}
                   name="password"
@@ -125,6 +135,13 @@ const Login = () => {
                   }}
                   onChange={handleOnChange}
                   helperText={error.password}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        {hide ? <VisibilityOff /> : <Visibility />}
+                      </InputAdornment>
+                    ),
+                  }}
                 />
               </div>
               <Button variant="contained" type="submit" fullWidth disabled={disabled}>
