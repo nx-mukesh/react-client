@@ -3,14 +3,19 @@ import { PropTypes } from 'prop-types';
 import { style } from './style';
 
 const SelectField = (props) => {
-  const { error, onChange, defaultText } = props;
+  const { error, onChange, defaultText, handleOnBlur } = props;
   return (
     <div className="selectField">
       <div className="selectField__label" style={style.selectField__label}>
         <label htmlFor="games">Select the game you play?</label>
       </div>
       <div className="dropdown">
-        <select style={style.selectField__select_sport} name="games" id="games" onChange={onChange}>
+        <select
+          style={style.selectField__select_sport}
+          name="sport"
+          onBlur={(event) => handleOnBlur(event, 'sport')}
+          onChange={onChange}
+        >
           <option value="" readOnly>
             {defaultText}
           </option>
@@ -18,7 +23,7 @@ const SelectField = (props) => {
           <option value="football">Football</option>
         </select>
       </div>
-      <span className="testField__error" style={style.testField__error}>
+      <span className="testField__error" style={{color:'red'}}>
         {error}
       </span>
     </div>

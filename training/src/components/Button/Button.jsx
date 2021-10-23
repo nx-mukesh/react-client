@@ -3,10 +3,10 @@ import { PropTypes } from 'prop-types';
 import { style } from './style';
 
 const Button = (props) => {
-  const { color, disabled, style, value, onClick } = props;
+  const { disabled, style, onClick } = props;
 
   return (
-    <div className="button" style={style.button}>
+    <div className="button" style={style.button__submit}>
       <button
         className="button__cancel"
         style={{ color: 'black', background: 'grey', margin: '5px', padding: '5px' }}
@@ -14,8 +14,7 @@ const Button = (props) => {
         Cancel
       </button>
       <button
-        className="button__submit"
-        style={{background:{color}}}
+        style={style}
         onClick={onClick}
         disabled={disabled}
       >

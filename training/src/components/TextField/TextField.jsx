@@ -1,41 +1,41 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { style } from './style';
 
 const TextField = (props) => {
-  const { onChange, error, value, onBlur, register } = props;
+  const { onChange, handleOnBlur, error, label, value } = props;
 
   return (
     <div className="textField" style={style.textField}>
-      <label htmlFor="inputName">Name</label>
+      <label htmlFor="inputName">{label}</label>
       <input
         className="testField__input"
         style={style.testField__input}
         type="text"
-        value={value}
-        name="inputName"
-        id="inputName"
+        value={value.name}
+        name="name"
         onChange={onChange}
-        onBlur={onBlur}
-        ref={register}
+        onBlur={(event)=>handleOnBlur(event, 'name')}
       />
-      <span className="testField__error" style={style.testField__error}>
-        {error}
-      </span>
+      <div><p style={{color:'red'}}>{error}</p></div>
     </div>
   );
 };
 
 TextField.propTypes = {
   value: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
   error: PropTypes.string,
-  handleOnChange: PropTypes.func,
+  handleOnBlur: PropTypes.func,
+  onChange: PropTypes.func,
 };
 
 TextField.defaultProps = {
-  error: '',
   value: '',
-  handleOnChange: () => {},
+  label: '',
+  error: '',
+  handleOnBlur: ()=>{},
+  onChange: () => {},
 };
 
 export default TextField;
