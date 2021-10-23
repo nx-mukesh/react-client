@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import * as yup from 'yup';
-import { hasError, validationSchema } from '../../lib/utils/helper';
+import React, { useState, useEffect } from 'react';
+import { validationSchema } from '../../lib/utils/helper';
 import { RadioGroup, SelectField, TextField } from '../../components';
 import { Button } from '../../components/Button';
 import { style } from './style';
@@ -10,15 +9,12 @@ const InputDemo = () => {
   const [sport, setSport] = useState('');
   const [cricket, setCricket] = useState('');
   const [football, setFootball] = useState('');
-  const [error, setError] = useState('');
-  const [formValue, setFormValue] = useState({});
-  const getError = () => {
-    return 'error';
-  };
+  const [error, setError] = useState({});
+  const [touched, setTouched] = useState({});
+  const [disable, setDisable] = useState(true);
+
   const handleNameChange = async (event) => {
     const { value } = event.target;
-    console.log('value', value);
-    // const error = getError(validationSchema, value);
     setName(value);
   };
 
@@ -34,18 +30,21 @@ const InputDemo = () => {
     const { value } = event.target;
     setFootball(value);
   };
-  const touched = () => {
-    return true;
-  };
 
-  console.log({
+  const data = {
     name: name,
     sport: sport,
     cricket: cricket,
     football: football,
-  });
+  };
+  console.log(data)
+  useEffect(() => {
+    if(Object.keys(error).length === 0 ){
+      setDisable(false)
+    }
 
-  // ++++++++++++++++++++++++++++++++++++++Errror++++++++++++++++++++++
+  }, [error])
+
   const handleErrors = (value) => {
     const { name, sport, cricket, football } = value;
     validationSchema
@@ -59,10 +58,7 @@ const InputDemo = () => {
         { abortEarly: false },
       )
       .then(() => {
-        setFormValue({
-          ...formValue,
-          error: {},
-        });
+        setError({});
       })
       .catch((errors) => {
         const schemaErrors = {};
@@ -70,68 +66,37 @@ const InputDemo = () => {
           errors.inner.forEach((err) => {
             schemaErrors[err.path] = err.message;
           });
-          setFormValue({
-            ...value,
-            errors: schemaErrors,
-          });
+          setError(schemaErrors);
         }
       });
   };
 
-  let schema = yup.object().shape({
-    name: yup.string().required(),
-    age: yup.number().required().positive().integer(),
-    email: yup.string().email(),
-    website: yup.string().url(),
-    createdOn: yup.date().default(function () {
-      return new Date();
-    }),
-  });
-
-  // hasError
-  const hasError =(value, type)=>{
-    if(value === ''){
-      setError(`${type} field required`)
-      return console.log(error)
-    }
-  }
-console.log(error)
-  // ============================================== onBlurChange
-  const onBlurHandler = (event, type) => {
-    const { value } = event.target;
-    hasError({value, type})
-    // validationSchema.isValid({type:value}).then(valid=>{
-    //   console.log('validInput', valid)
-    // }).catch((error)=>{
-    //   console.log('error', error)
-    // })
-  };
-  // ++++++============================================OnChange handler
-  const handleOnchange = (event, field) => {
-    const { value } = event.target;
-    touched[field] = true;
-    const formData = {
-      name: event.target[0].value,
-      sport: event.target[1].value,
-      role: event.target[2].value,
-    };
+  const handleOnBlur = (event, type) => {
+    event.preventDefault()
+    setTouched({...touched, [type]:"true"})
     const newValue = {
-      ...formValue,
-      sport: value,
-      cricket: '',
-      football: '',
+      name,
+      sport,
+      cricket,
+      football,
     };
+    handleErrors(newValue);
+    setError({})
   };
+
+  const handleSubmit=(event)=>{
+    event.preventDefault()
+    console.log(error)
+    console.log(event.target.value)
+  }
 
   const handleRadio = () => {
     if (sport === 'football') {
       return (
         <RadioGroup
-          error={getError(formValue, 'football')}
+          error={error.whatYouDo}
           onChange={handleFootball}
-          onBlurHandler={(event) => {
-            onBlurHandler(event, 'football');
-          }}
+          handleOnBlur={handleOnBlur}
           value={football}
           options={[{ label: 'football' }, { value: 'football' }]}
         />
@@ -141,10 +106,8 @@ console.log(error)
       return (
         <RadioGroup
           onChange={handleCricket}
-          onBlurHandler={(event) => {
-            onBlurHandler(event, 'cricket');
-          }}
-          error={getError(formValue, 'cricket')}
+          handleOnBlur={handleOnBlur}
+          error={error.whatYouDo}
           value={cricket}
           options={[{ label: 'cricket' }, { value: 'cricket' }]}
         />
@@ -155,14 +118,12 @@ console.log(error)
 
   return (
     <div className="inputDemo" style={style.inputDemo}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="inputDemo__name">
           <TextField
             onChange={handleNameChange}
-            onBlurHandler={(event) => {
-              onBlurHandler(event, 'name');
-            }}
-            error={(getError(formValue), 'sport')}
+            handleOnBlur={handleOnBlur}
+            error={error.name}
             label="Name"
             value={name}
           />
@@ -171,10 +132,8 @@ console.log(error)
           <SelectField
             onChange={handleSportChange}
             value={sport}
-            onBlurHandler={(event) => {
-              onBlurHandler(event, 'sport');
-            }}
-            error={(getError(formValue), 'sport')}
+            handleOnBlur={handleOnBlur}
+            error={error.sport}
             options={[{ label: 'Select the game you play' }, { value: 'Sport' }]}
             defaultText="Select"
             label="sport"
@@ -182,7 +141,7 @@ console.log(error)
         </div>
         <div className="inputDemo__radio">{handleRadio(sport)}</div>
         <div className="inputDemo__button" style={style.inputDemo__button}>
-          <Button disable={false} color={'green'} />
+          <Button color='green' disabled={disable} style={{padding:'5px', margin:'2px'}} value={data} onClick={handleSubmit}/>
         </div>
       </form>
     </div>
