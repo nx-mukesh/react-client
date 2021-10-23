@@ -3,8 +3,7 @@ import { PropTypes } from 'prop-types';
 import { style } from './style';
 
 const Button = (props) => {
-  const { color, disabled, style, value, onClick } = props;
-  console.log(value)
+  const { disabled, style, onClick } = props;
 
   return (
     <div className="button" style={style.button__submit}>

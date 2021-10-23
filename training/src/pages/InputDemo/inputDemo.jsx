@@ -86,8 +86,6 @@ const InputDemo = () => {
 
   const handleSubmit=(event)=>{
     event.preventDefault()
-    console.log(error)
-    console.log(event.target.value)
   }
 
   const handleRadio = () => {
