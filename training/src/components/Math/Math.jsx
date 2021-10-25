@@ -46,8 +46,6 @@ Math.prototypes = {
 };
 
 Math.defaultProp = {
-  first: 0,
-  second: 0,
   operators: '',
   children: () => {},
 };

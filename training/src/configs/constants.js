@@ -16,3 +16,11 @@ export const CRICKET_PLAYERS_ROLE = {
   wicketKeeper: 'Wicket Keeper',
   allRounder: 'All Rounder',
 };
+
+export const OPERATOR = {
+  plus = "+",
+  minus = "-",
+  multiply = "*",
+  divide = "/",
+  power = "^"
+}
