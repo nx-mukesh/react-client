@@ -44,13 +44,13 @@ const AddDialog = (props) => {
   };
 
   const handleOnBlur = () => {
+    console.log("onBlurClicked....")
     validateInput(input)
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setInput({ ...input, [name]: value });
-    validateInput(input);
   };
 
   const validateInput = (input) => {
@@ -60,15 +60,17 @@ const AddDialog = (props) => {
       })
       .catch((error) => {
         const errorSchema = {};
-        error.inner.forEach((err) => {
-          console.log(err.message)
+        console.log(error)
+        error.inner.map((err) => {
           errorSchema[err.path] = err.message;
-          return setErrors(errorSchema);
+          setErrors(errorSchema);
+          console.log(errorSchema)
         });
       });
   };
 
-  console.log(input);
+  // console.log(input);
+  console.log(errors);
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
