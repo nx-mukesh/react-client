@@ -18,9 +18,9 @@ export const CRICKET_PLAYERS_ROLE = {
 };
 
 export const OPERATOR = {
-  plus = "+",
-  minus = "-",
-  multiply = "*",
-  divide = "/",
-  power = "^"
-}
+  plus: '+',
+  minus: '-',
+  multiply: '*',
+  divide: '/',
+  power: '^',
+};
