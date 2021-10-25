@@ -4,9 +4,11 @@ import Button from '@mui/material/Button';
 
 const Trainee = () => {
   const [open, setOpen] = useState(false);
-  const handleSubmit = (event)=> {
+  const [value, setValue] = useState({})
+
+  const handleSubmit = (event, input)=> {
     event.preventDefault();
-    console.log(event)
+    console.log(input)
   }
 
   const handleClickOpen = () => {

@@ -26,11 +26,19 @@ const AddDialog = (props) => {
     confirmPassword: '',
   });
   const [errors, setErrors] = useState({});
-
   const [values, setValues] = useState({
     showPassword: false,
   });
+  const [enable, setEnable] = useState(true);
+  const [touched, setTouched] = useState({});
+
   const { open, onClose, onSubmit } = props;
+
+  useEffect(() => {
+    if (touched.name && touched.email && touched.password && touched.confirmPassword) {
+      setEnable(false);
+    }
+  }, [touched]);
 
   const handleClickShowPassword = () => {
     setValues({
@@ -43,14 +51,15 @@ const AddDialog = (props) => {
     event.preventDefault();
   };
 
-  const handleOnBlur = () => {
-    console.log("onBlurClicked....")
-    validateInput(input)
+  const handleOnBlur = (event) => {
+    const { name } = event.target;
+    setTouched({ ...touched, [name]: true });
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setInput({ ...input, [name]: value });
+    validateInput(input);
   };
 
   const validateInput = (input) => {
@@ -60,17 +69,12 @@ const AddDialog = (props) => {
       })
       .catch((error) => {
         const errorSchema = {};
-        console.log(error)
         error.inner.map((err) => {
           errorSchema[err.path] = err.message;
           setErrors(errorSchema);
-          console.log(errorSchema)
         });
       });
   };
-
-  // console.log(input);
-  console.log(errors);
 
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -79,7 +83,11 @@ const AddDialog = (props) => {
           <DialogTitle>Add Trainee</DialogTitle>
           <DialogContent>
             <DialogContentText>Enter yours trainee details</DialogContentText>
-            <form onSubmit={onSubmit}>
+            <form
+              onSubmit={(event) => {
+                onSubmit(event, input);
+              }}
+            >
               <div className="formInput__name">
                 <TextField
                   sx={{ m: 1 }}
@@ -136,7 +144,7 @@ const AddDialog = (props) => {
                     }
                     label="Password"
                   />
-                   <p style={{color:"red"}}>{errors.password}</p>
+                  <p style={{ color: 'red' }}>{errors.password}</p>
                 </FormControl>
                 <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
                   <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
@@ -162,7 +170,7 @@ const AddDialog = (props) => {
                     }
                     label="Confirm Password"
                   />
-                  <p style={{color:"red"}}>{errors.confirmPassword}</p>
+                  <p style={{ color: 'red' }}>{errors.confirmPassword}</p>
                 </FormControl>
               </div>
 
@@ -170,7 +178,13 @@ const AddDialog = (props) => {
                 <Button type="cancel" variant="filled" onClick={onClose}>
                   Cancel
                 </Button>
-                <Button type="submit" variant="contained" color="primary" onClick={onClose} disabled={true}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  onClick={onClose}
+                  disabled={enable}
+                >
                   Submit
                 </Button>
               </DialogActions>
