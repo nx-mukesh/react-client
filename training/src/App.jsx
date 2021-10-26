@@ -1,17 +1,16 @@
 import React from 'react';
 // import { InputDemo } from './pages';
-import { Theme } from './theme';
-import { ThemeProvider } from '@mui/material/styles';
-import { ChildrenDemo } from './pages/ChildrenDemo';
+import { Login } from './pages';
+// import { Trainee } from './pages';
 
 const App = () => (
-  <ThemeProvider theme={Theme}>
-    <div className="app">
-      {/* <TextFieldDemo /> */}
-      {/* <InputDemo /> */}
-      <ChildrenDemo />
-    </div>
-  </ThemeProvider>
+  <div className="app">
+    {/* <TextFieldDemo /> */}
+    {/* <InputDemo /> */}
+    {/* <Trainee /> */}
+    <Login/>
+    {/* hello react app */}
+  </div>
 );
 
 export default App;
