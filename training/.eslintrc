@@ -10,6 +10,7 @@
   "rules": {
     "indent": [2, 2],
     "react/jsx-indent": ["error", 2],
+    "react/prop-types": ["off"],
     "import/prefer-default-export": "off",
     "jsx-a11y/label-has-for": [
       2,
@@ -18,13 +19,6 @@
           "every": ["id"]
         }
       }
-    ],
-    "parserOptions": {
-      "ecmaVersion": 6,
-      "ecmaFeatures": {
-        "jsx": true,
-        "classes": true
-      }
-    }
+    ]
   }
 }
