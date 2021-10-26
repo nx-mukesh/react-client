@@ -4,12 +4,11 @@ import Button from '@mui/material/Button';
 
 const Trainee = () => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState({})
 
-  const handleSubmit = (event, input)=> {
+  const handleSubmit = (event, input) => {
     event.preventDefault();
-    console.log(input)
-  }
+    console.log(input);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -35,7 +34,6 @@ const Trainee = () => {
           ADD TRAINEE
         </Button>
       </div>
-
       <AddDialog open={open} onClose={handleClose} onSubmit={handleSubmit} />
     </div>
   );
