@@ -56,24 +56,23 @@ const AddDialog = (props) => {
     setTouched({ ...touched, [name]: true });
   };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setInput({ ...input, [name]: value });
-    validateInput(input);
-  };
-
-  const validateInput = (input) => {
-    TraineeSchema.validate(input, { abortEarly: false })
-      .then((input) => {
+  const validateInput = (inputs) => {
+    TraineeSchema.validate(inputs, { abortEarly: false })
+      .then(() => {
         setInput({ ...input });
       })
       .catch((error) => {
         const errorSchema = {};
         error.inner.map((err) => {
           errorSchema[err.path] = err.message;
-          setErrors(errorSchema);
+          return setErrors(errorSchema);
         });
       });
+  };
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setInput({ ...input, [name]: value });
+    validateInput(input);
   };
 
   return (

@@ -1,1 +1,1 @@
-export { default as AddDialog } from './AddDialog';
+export { AddDialog } from './AddDialog';
