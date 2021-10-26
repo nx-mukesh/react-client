@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { loginSchema } from '../../lib/utils/validation';
+import { LoginSchema } from '../../lib/utils/helper';
 import {
   Button,
   FormControl,
   Grid,
   Typography,
-  FormHelperText,
   TextField,
   CssBaseline,
   InputAdornment,
-  IconButton
+  IconButton,
 } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -22,21 +21,31 @@ const Login = () => {
     password: '',
   });
   const [error, setError] = useState({});
-  const [touched] = useState({});
-  const [disabled, setDisabled] = useState(true);
-  const [hide, setHide] = useState(true)
+  const [touched, setTouched] = useState({});
+  const [enable, setEnable] = useState(true);
+  const [values, setValues] = useState({
+    showPassword: false,
+  });
 
   useEffect(() => {
     if (touched.email && touched.password) {
-      setDisabled(false);
+      setEnable(false);
+      console.log(error);
     }
-  }, [error]);
+  }, [touched]);
 
-  // handler
+  const handleOnChange = (event) => {
+    const { name, value } = event.target;
+    setUserInput({ ...userInput, [name]: value });
+  };
+
+  /**
+   *@description throw errors if violate rule
+   * @param {*} values Takes userInput for validation
+   * @return object of error if any
+   */
   const handleError = (values) => {
-    const { email, password } = values;
-    loginSchema
-      .validate({ email, password }, { abortEarly: false })
+    LoginSchema.validate({ ...values }, { abortEarly: false })
       .then(() => {
         setUserInput({ ...values });
       })
@@ -49,27 +58,26 @@ const Login = () => {
       });
   };
 
-  const handleOnBlur = (e, field) => {
-    touched[field] = true;
-    setError({});
+  const handleOnBlur = (event) => {
+    const { name } = event.target;
+    setTouched({ ...touched, [name]: true });
     handleError(userInput);
+    console.log(touched);
   };
 
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    setUserInput({ ...userInput, [name]: value });
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(userInput);
   };
-
-  const handleShowPassword = () => {
-    setUserInput({
-      ...userInput,
-      showPassword: !userInput.password,
+  const handleClickShowPassword = () => {
+    setValues({
+      ...values,
+      showPassword: !values.showPassword,
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(userInput);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   return (
@@ -104,9 +112,7 @@ const Login = () => {
                   error={error.email}
                   name="email"
                   color="secondary"
-                  onBlur={(e) => {
-                    handleOnBlur(e, 'email');
-                  }}
+                  onBlur={handleOnBlur}
                   onChange={handleOnChange}
                   helperText={error.email}
                   InputProps={{
@@ -123,28 +129,32 @@ const Login = () => {
                   label="Password"
                   id="outlined-password-input"
                   sx={{ mb: 5 }}
-                  type="password"
+                  type={values.showPassword ? 'text' : 'password'}
                   fullWidth
                   error={error.password}
                   name="password"
                   color="secondary"
                   value={userInput.password}
-                  autoComplete="current-password"
-                  onBlur={(e) => {
-                    handleOnBlur(e, 'password');
-                  }}
+                  onBlur={handleOnBlur}
                   onChange={handleOnChange}
                   helperText={error.password}
                   InputProps={{
+                    // <-- This is where the toggle button is added.
                     startAdornment: (
                       <InputAdornment position="start">
-                        {hide ? <VisibilityOff /> : <Visibility />}
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
                       </InputAdornment>
                     ),
                   }}
                 />
               </div>
-              <Button variant="contained" type="submit" fullWidth disabled={disabled}>
+              <Button variant="contained" type="submit" fullWidth disabled={enable}>
                 SIGN IN
               </Button>
             </form>

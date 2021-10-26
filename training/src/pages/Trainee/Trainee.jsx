@@ -5,10 +5,12 @@ import { Navbar } from '../components';
 
 const Trainee = () => {
   const [open, setOpen] = useState(false);
+  const [value, setValue] = useState({})
 
-  const handle_AddDialogClick = () => {
-    setOpen(true);
-  };
+  const handleSubmit = (event, input)=> {
+    event.preventDefault();
+    console.log(input)
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,7 +38,7 @@ const Trainee = () => {
         </Button>
       </div>
 
-      <AddDialog open={open} onClose={handleClose} onSubmit={'hi'} />
+      <AddDialog open={open} onClose={handleClose} onSubmit={handleSubmit} />
     </div>
   );
 };

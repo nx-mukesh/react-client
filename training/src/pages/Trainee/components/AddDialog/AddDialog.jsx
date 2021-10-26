@@ -1,35 +1,45 @@
-import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
+import React, { useState, useEffect } from 'react';
+import { TraineeSchema } from '../../../../lib/utils/helper';
+import {
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  InputAdornment,
+  IconButton,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  Box,
+} from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import Box from '@mui/material/Box';
 
 const AddDialog = (props) => {
   const [input, setInput] = useState({
     name: '',
-    lastName: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
+  const [errors, setErrors] = useState({});
   const [values, setValues] = useState({
-    amount: '',
-    password: '',
-    weight: '',
-    weightRange: '',
     showPassword: false,
   });
+  const [enable, setEnable] = useState(true);
+  const [touched, setTouched] = useState({});
+
+  const { open, onClose, onSubmit } = props;
+
+  useEffect(() => {
+    if (touched.name && touched.email && touched.password && touched.confirmPassword) {
+      setEnable(false);
+    }
+  }, [touched]);
+
   const handleClickShowPassword = () => {
     setValues({
       ...values,
@@ -41,30 +51,29 @@ const AddDialog = (props) => {
     event.preventDefault();
   };
 
-  const { open, onClose, onSubmit } = props;
-
-  const handleClickOpen = () => {
-    // setOpen(true);
+  const handleOnBlur = (event) => {
+    const { name } = event.target;
+    setTouched({ ...touched, [name]: true });
   };
 
-  const handleChange = (e) => {
-    // setInput((input) => ({ ...input, [e.target.name]: e.target.value }));
-    console.log(input);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setInput({ ...input, [name]: value });
+    validateInput(input);
   };
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
-  const endAdornment = ()=>{
-    <InputAdornment position="end">
-      <IconButton
-        aria-label="toggle password visibility"
-        onClick={handleClickShowPassword}
-        onMouseDown={handleMouseDownPassword}
-        edge="end"
-      >
-        {/* {values.showPassword ? <VisibilityOff /> : <Visibility />} */}
-      </IconButton>
-    </InputAdornment>;
+
+  const validateInput = (input) => {
+    TraineeSchema.validate(input, { abortEarly: false })
+      .then((input) => {
+        setInput({ ...input });
+      })
+      .catch((error) => {
+        const errorSchema = {};
+        error.inner.map((err) => {
+          errorSchema[err.path] = err.message;
+          setErrors(errorSchema);
+        });
+      });
   };
 
   return (
@@ -74,7 +83,11 @@ const AddDialog = (props) => {
           <DialogTitle>Add Trainee</DialogTitle>
           <DialogContent>
             <DialogContentText>Enter yours trainee details</DialogContentText>
-            <form>
+            <form
+              onSubmit={(event) => {
+                onSubmit(event, input);
+              }}
+            >
               <div className="formInput__name">
                 <TextField
                   sx={{ m: 1 }}
@@ -86,23 +99,25 @@ const AddDialog = (props) => {
                   value={input.name}
                   name="name"
                   onChange={handleChange}
+                  onBlur={handleOnBlur}
+                  error={errors.name}
+                  helperText={errors.name}
                 />
               </div>
-              {/* </FormControl> */}
               <div className="formInput__email">
-                {/* <FormControl sx={{ m: 1 , width:"auto"}} variant="outlined"> */}
                 <TextField
                   sx={{ m: 1 }}
-                  label="Email"
+                  label="Email Address"
                   variant="outlined"
                   type="email"
-                  required
                   fullWidth
                   value={input.email}
                   name="email"
                   onChange={handleChange}
+                  onBlur={handleOnBlur}
+                  error={errors.email}
+                  helperText={errors.email}
                 />
-                {/* </FormControl> */}
               </div>
               <div className="formInput__password">
                 <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
@@ -110,64 +125,71 @@ const AddDialog = (props) => {
                   <OutlinedInput
                     id="outlined-adornment-password"
                     type={values.showPassword ? 'text' : 'password'}
-                    value={values.password}
-                    onChange={handleChange('password')}
-                    endAdornment={
-                      <InputAdornment position="end">
+                    name="password"
+                    value={input.password}
+                    onChange={handleChange}
+                    onBlur={handleOnBlur}
+                    helperText={errors.password}
+                    startAdornment={
+                      <InputAdornment position="start">
                         <IconButton
                           aria-label="toggle password visibility"
                           onClick={handleClickShowPassword}
                           onMouseDown={handleMouseDownPassword}
-                          edge="end"
+                          edge="start"
                         >
-                          {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                          {values.showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                       </InputAdornment>
                     }
                     label="Password"
                   />
+                  <p style={{ color: 'red' }}>{errors.password}</p>
                 </FormControl>
                 <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
                   <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
                   <OutlinedInput
                     id="outlined-adornment-Confirm Password"
+                    name="confirmPassword"
                     type={values.showPassword ? 'text' : 'password'}
-                    value={values.password}
-                    onChange={handleChange('password')}
-                    endAdornment={
-                      <InputAdornment position="end">
+                    value={input.confirmPassword}
+                    onChange={handleChange}
+                    onBlur={handleOnBlur}
+                    helperText={errors.confirmPassword}
+                    startAdornment={
+                      <InputAdornment position="start">
                         <IconButton
                           aria-label="toggle password visibility"
                           onClick={handleClickShowPassword}
                           onMouseDown={handleMouseDownPassword}
-                          edge="end"
+                          start="start"
                         >
-                          {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                          {values.showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                       </InputAdornment>
                     }
                     label="Confirm Password"
                   />
+                  <p style={{ color: 'red' }}>{errors.confirmPassword}</p>
                 </FormControl>
               </div>
-              <div>
-                <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                  <Button variant="contained" onClick={onClose}>
-                    Cancel
-                  </Button>
-                </FormControl>
-                <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                  <Button type="submit" variant="contained" color="primary">
-                    Sign Up
-                  </Button>
-                </FormControl>
-              </div>
+
+              <DialogActions>
+                <Button type="cancel" variant="filled" onClick={onClose}>
+                  Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  onClick={onClose}
+                  disabled={enable}
+                >
+                  Submit
+                </Button>
+              </DialogActions>
             </form>
           </DialogContent>
-          <DialogActions>
-            <Button onClick={onClose}>Cancel</Button>
-            <Button onClick={onClose}>Subscribe</Button>
-          </DialogActions>
         </Dialog>
       </div>
     </Box>

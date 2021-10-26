@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
-import { validationSchema } from '../../lib//utils/validation';
+import React, { useState, useEffect } from 'react';
+import { validationSchema } from '../../lib/utils/helper';
 import { RadioGroup, SelectField, TextField } from '../../components';
 import { Button } from '../../components/Button';
 import { style } from './style';
@@ -11,19 +9,12 @@ const InputDemo = () => {
   const [sport, setSport] = useState('');
   const [cricket, setCricket] = useState('');
   const [football, setFootball] = useState('');
-  const [error, setError] = useState('');
-  const { getError, field } = useForm();
+  const [error, setError] = useState({});
+  const [touched, setTouched] = useState({});
+  const [disable, setDisable] = useState(true);
 
-  // getError("firstName")
-  // getError(errors => errors.firstName)
-
-  // const { isTouched } = useForm();
-  // isTouched(touched => touched.firstName);
-
-  const handleNameChange = (event) => {
+  const handleNameChange = async (event) => {
     const { value } = event.target;
-    const validName = validationSchema.isValid(value)
-    console.log(validName)
     setName(value);
   };
 
@@ -40,19 +31,71 @@ const InputDemo = () => {
     setFootball(value);
   };
 
-  console.log({
+  const data = {
     name: name,
     sport: sport,
     cricket: cricket,
     football: football,
-  });
+  };
+  console.log(data)
+  useEffect(() => {
+    if(Object.keys(error).length === 0 ){
+      setDisable(false)
+    }
+
+  }, [error])
+
+  const handleErrors = (value) => {
+    const { name, sport, cricket, football } = value;
+    validationSchema
+      .validate(
+        {
+          name,
+          sport,
+          cricket,
+          football,
+        },
+        { abortEarly: false },
+      )
+      .then(() => {
+        setError({});
+      })
+      .catch((errors) => {
+        const schemaErrors = {};
+        if (errors) {
+          errors.inner.forEach((err) => {
+            schemaErrors[err.path] = err.message;
+          });
+          setError(schemaErrors);
+        }
+      });
+  };
+
+  const handleOnBlur = (event, type) => {
+    event.preventDefault()
+    setTouched({...touched, [type]:"true"})
+    const newValue = {
+      name,
+      sport,
+      cricket,
+      football,
+    };
+    handleErrors(newValue);
+    setError({})
+  };
+
+  const handleSubmit=(event)=>{
+    event.preventDefault()
+  }
+
   const handleRadio = () => {
     if (sport === 'football') {
       return (
         <RadioGroup
+          error={error.whatYouDo}
           onChange={handleFootball}
+          handleOnBlur={handleOnBlur}
           value={football}
-          error={error}
           options={[{ label: 'football' }, { value: 'football' }]}
         />
       );
@@ -61,8 +104,9 @@ const InputDemo = () => {
       return (
         <RadioGroup
           onChange={handleCricket}
+          handleOnBlur={handleOnBlur}
+          error={error.whatYouDo}
           value={cricket}
-          error={error}
           options={[{ label: 'cricket' }, { value: 'cricket' }]}
         />
       );
@@ -70,39 +114,32 @@ const InputDemo = () => {
     return null;
   };
 
-  const handleSubmit = (event) =>{
-    event.preventDefault()
-    const formData = {
-      name:event.target[0].value,
-      sport:event.target[1].value,
-      role:event.target[2].value,
-    }
-    console.log("formData", formData)
-    validationSchema.isValid(formData).then(
-      console.log("dataCorrenct")
-    ).catch(
-      console.log('error', error)
-    )
-  }
-
   return (
     <div className="inputDemo" style={style.inputDemo}>
       <form onSubmit={handleSubmit}>
         <div className="inputDemo__name">
-          <TextField onChange={handleNameChange} value={name} error={error} />
+          <TextField
+            onChange={handleNameChange}
+            handleOnBlur={handleOnBlur}
+            error={error.name}
+            label="Name"
+            value={name}
+          />
         </div>
         <div className="inputDemo__select">
           <SelectField
             onChange={handleSportChange}
             value={sport}
-            error={error}
+            handleOnBlur={handleOnBlur}
+            error={error.sport}
             options={[{ label: 'Select the game you play' }, { value: 'Sport' }]}
             defaultText="Select"
+            label="sport"
           />
         </div>
         <div className="inputDemo__radio">{handleRadio(sport)}</div>
         <div className="inputDemo__button" style={style.inputDemo__button}>
-          <Button disable={false} color={'green'} />
+          <Button color='green' disabled={disable} style={{padding:'5px', margin:'2px'}} value={data} onClick={handleSubmit}/>
         </div>
       </form>
     </div>

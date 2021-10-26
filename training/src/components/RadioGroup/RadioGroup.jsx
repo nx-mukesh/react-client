@@ -4,7 +4,7 @@ import { style } from './style';
 import {GAMES, FOOTBALL_PLAYERS_ROLE, CRICKET_PLAYERS_ROLE} from '../../configs/constants';
 
 const RadioGroup = (props) => {
-  const { error, onChange, options } = props;
+  const { error, onChange, options, handleOnBlur } = props;
   const displayPlayerRole = (options) => {
     {
       if (options[0].label === GAMES.football) {
@@ -18,6 +18,7 @@ const RadioGroup = (props) => {
                 name="player"
                 value={FOOTBALL_PLAYERS_ROLE.defender}
                 onChange={onChange}
+                onBlur={(event)=>{handleOnBlur(event, GAMES.football)}}
               />
               <label htmlFor="defender">Defender</label>
             </div>
@@ -29,6 +30,7 @@ const RadioGroup = (props) => {
                 name="player"
                 value={FOOTBALL_PLAYERS_ROLE.striker}
                 onChange={onChange}
+                onBlur={(event)=>{handleOnBlur(event, GAMES.football)}}
               />
               <label htmlFor="striker">Striker</label>
             </div>
@@ -46,6 +48,7 @@ const RadioGroup = (props) => {
                 name="player"
                 value={CRICKET_PLAYERS_ROLE.wicketKeeper}
                 onChange={onChange}
+                onBlur={(event)=>{handleOnBlur(event, GAMES.cricket)}}
               />
               <label htmlFor="wicket_keeper">Wicket Keeper</label>
             </div>
@@ -57,6 +60,7 @@ const RadioGroup = (props) => {
                 name="player"
                 value={CRICKET_PLAYERS_ROLE.batsman}
                 onChange={onChange}
+                onBlur={(event)=>{handleOnBlur(event, GAMES.cricket)}}
               />
               <label htmlFor="batsman">Batsman</label>
             </div>
@@ -68,6 +72,7 @@ const RadioGroup = (props) => {
                 name="player"
                 value={CRICKET_PLAYERS_ROLE.bowler}
                 onChange={onChange}
+                onBlur={(event)=>{handleOnBlur(event, GAMES.cricket)}}
               />
               <label htmlFor="bowler">Bowler</label>
             </div>
@@ -79,6 +84,7 @@ const RadioGroup = (props) => {
                 name="player"
                 value={CRICKET_PLAYERS_ROLE.allRounder}
                 onChange={onChange}
+                onBlur={(event)=>{handleOnBlur(event, GAMES.cricket)}}
               />
               <label htmlFor="all_rounder">All Rounder</label>
             </div>
@@ -93,7 +99,7 @@ const RadioGroup = (props) => {
     <div className="radioGroup">
       <h4 style={style.input}>What you do?</h4>
       {displayPlayerRole(options)}
-      <span className="testField__error" style={style.testField__error}>
+      <span className="testField__error" style={{color:'red'}}>
         {error}
       </span>
     </div>
