@@ -1,42 +1,106 @@
-// import React, { useState } from 'react';
-// import Button from '@mui/material/Button';
-// import { AddDialog } from './components';
+// // import React from 'react'
 
-// const Trainee = () => {
-//   const [open, setOpen] = useState(false);
+// import CssBaseline from '@material-ui/core/CssBaseline'
+// import MaUTable from '@material-ui/core/Table'
+// import TableBody from '@material-ui/core/TableBody'
+// import TableCell from '@material-ui/core/TableCell'
+// import TableHead from '@material-ui/core/TableHead'
+// import TableRow from '@material-ui/core/TableRow'
 
-//   const handleSubmit = (event, input) => {
-//     event.preventDefault();
-//     console.log(input);
-//   };
+// import { useTable } from 'react-table'
 
-//   const handleClickOpen = () => {
-//     setOpen(true);
-//   };
+// import makeData from './makeData'
 
-//   const handleClose = () => {
-//     setOpen(false);
-//   };
+// function Table({ columns, data }) {
+//   // Use the state and functions returned from useTable to build your UI
+//   const { getTableProps, headerGroups, rows, prepareRow } = useTable({
+//     columns,
+//     data,
+//   })
+
+//   // Render the UI for your table
 //   return (
-//     <div className="Trainee">
-//       <div className="trainee__Add-traineeBtn">
-//         <Button
-//           style={{
-//             margin: '20px',
-//             fontSize: '20px',
-//             color: 'purple',
-//             border: '1px solid purple',
-//             borderRadius: '5px',
-//           }}
-//           variant="outlined"
-//           onClick={handleClickOpen}
-//         >
-//           ADD TRAINEE
-//         </Button>
-//       </div>
-//       <AddDialog open={open} onClose={handleClose} onSubmit={handleSubmit} />
-//     </div>
-//   );
-// };
+//     <MaUTable {...getTableProps()}>
+//       <TableHead>
+//         {headerGroups.map(headerGroup => (
+//           <TableRow {...headerGroup.getHeaderGroupProps()}>
+//             {headerGroup.headers.map(column => (
+//               <TableCell {...column.getHeaderProps()}>
+//                 {column.render('Header')}
+//               </TableCell>
+//             ))}
+//           </TableRow>
+//         ))}
+//       </TableHead>
+//       <TableBody>
+//         {rows.map((row, i) => {
+//           prepareRow(row)
+//           return (
+//             <TableRow {...row.getRowProps()}>
+//               {row.cells.map(cell => {
+//                 return (
+//                   <TableCell {...cell.getCellProps()}>
+//                     {cell.render('Cell')}
+//                   </TableCell>
+//                 )
+//               })}
+//             </TableRow>
+//           )
+//         })}
+//       </TableBody>
+//     </MaUTable>
+//   )
+// }
 
-// export default Trainee;
+// function App() {
+//   const columns = React.useMemo(
+//     () => [
+//       {
+//         Header: 'Name',
+//         columns: [
+//           {
+//             Header: 'First Name',
+//             accessor: 'firstName',
+//           },
+//           {
+//             Header: 'Last Name',
+//             accessor: 'lastName',
+//           },
+//         ],
+//       },
+//       {
+//         Header: 'Info',
+//         columns: [
+//           {
+//             Header: 'Age',
+//             accessor: 'age',
+//           },
+//           {
+//             Header: 'Visits',
+//             accessor: 'visits',
+//           },
+//           {
+//             Header: 'Status',
+//             accessor: 'status',
+//           },
+//           {
+//             Header: 'Profile Progress',
+//             accessor: 'progress',
+//           },
+//         ],
+//       },
+//     ],
+//     []
+//   )
+
+//   const data = React.useMemo(() => makeData(10), [])
+
+//   return (
+//     <div>
+//       <CssBaseline />
+//       <Table columns={columns} data={data} />
+//     </div>
+//   )
+// }
+
+// export default App
