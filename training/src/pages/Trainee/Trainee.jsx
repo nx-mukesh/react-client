@@ -1,42 +1,42 @@
-import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import { AddDialog } from './components';
+// import React, { useState } from 'react';
+// import Button from '@mui/material/Button';
+// import { AddDialog } from './components';
 
-const Trainee = () => {
-  const [open, setOpen] = useState(false);
+// const Trainee = () => {
+//   const [open, setOpen] = useState(false);
 
-  const handleSubmit = (event, input) => {
-    event.preventDefault();
-    console.log(input);
-  };
+//   const handleSubmit = (event, input) => {
+//     event.preventDefault();
+//     console.log(input);
+//   };
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+//   const handleClickOpen = () => {
+//     setOpen(true);
+//   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-  return (
-    <div className="Trainee">
-      <div className="trainee__Add-traineeBtn">
-        <Button
-          style={{
-            margin: '20px',
-            fontSize: '20px',
-            color: 'purple',
-            border: '1px solid purple',
-            borderRadius: '5px',
-          }}
-          variant="outlined"
-          onClick={handleClickOpen}
-        >
-          ADD TRAINEE
-        </Button>
-      </div>
-      <AddDialog open={open} onClose={handleClose} onSubmit={handleSubmit} />
-    </div>
-  );
-};
+//   const handleClose = () => {
+//     setOpen(false);
+//   };
+//   return (
+//     <div className="Trainee">
+//       <div className="trainee__Add-traineeBtn">
+//         <Button
+//           style={{
+//             margin: '20px',
+//             fontSize: '20px',
+//             color: 'purple',
+//             border: '1px solid purple',
+//             borderRadius: '5px',
+//           }}
+//           variant="outlined"
+//           onClick={handleClickOpen}
+//         >
+//           ADD TRAINEE
+//         </Button>
+//       </div>
+//       <AddDialog open={open} onClose={handleClose} onSubmit={handleSubmit} />
+//     </div>
+//   );
+// };
 
-export default Trainee;
+// export default Trainee;
