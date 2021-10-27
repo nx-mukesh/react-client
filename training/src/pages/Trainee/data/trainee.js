@@ -1,4 +1,4 @@
-const trainees = [
+const traineesData = [
   {
     id: '5c6c47af7740654f0915fac9',
     name: 'Sachin Tendulkar',
@@ -31,4 +31,4 @@ const trainees = [
   },
 ];
 
-export default trainees;
+export default traineesData;

@@ -14,7 +14,7 @@ const Navbar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Trainee Portal
           </Typography>
-          <Link to="/"style={{textDecoration:"none", color:'white'}}>
+          <Link to="/trainee"style={{textDecoration:"none", color:'white'}}>
             {' '}
             <Button variant="h6" component="div">
               TRAINEE
