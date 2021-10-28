@@ -1,13 +1,15 @@
 import React from 'react';
-import { AuthRoute, PrivateRoute } from './routes';
-import { InputDemo, Login, TextFieldDemo, Trainee, ChildrenDemo, NotMatch } from './pages';
 import { BrowserRouter, Switch, Redirect } from 'react-router-dom';
+import { AuthRoute, PrivateRoute } from './routes';
+import { InputDemo, Login, TextFieldDemo, TraineeList, TraineeDetail, ChildrenDemo, NotMatch } from './pages';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <PrivateRoute exact path="/" component={Trainee} />
+        <PrivateRoute exact path="/" component={TraineeList} />
+        <PrivateRoute exact path="/trainee" component={TraineeList} />
+        <PrivateRoute exact path="/trainee/:id" component={TraineeDetail} />
         <PrivateRoute exact path="/text-field-demo" component={TextFieldDemo} />
         <PrivateRoute exact path="/input-demo" component={InputDemo} />
         <PrivateRoute exact path="/children-demo" component={ChildrenDemo} />
