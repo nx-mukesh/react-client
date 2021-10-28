@@ -1,25 +1,45 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
+import moment from 'moment';
 import { GenericTable } from '../../components';
 import { AddDialog } from './components';
 import traineesData from './data/trainee';
 
 const TraineeList = () => {
   const [open, setOpen] = useState(false);
+  const [order, setOrder] = React.useState('asc');
+  const [orderBy, setOrderBy] = React.useState('');
+  const [selected, setSelected] = React.useState([]);
 
   const handleSubmit = (event, input) => {
     event.preventDefault();
     console.log(input);
   };
-
+  const getDateFormatted = (date) => {
+    return moment(date).format('MMMM Do YYYY, h:mm:ss a');
+  };
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleSort = (event, property) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
+
+  const handleSelect = (event) => {
+    if (event.target.checked) {
+      const newSelected = traineesData.map((n) => n.name);
+      setSelected(newSelected);
+      return;
+    }
+    setSelected([]);
+  };
+
   return (
     <div className="traineeList">
       <div className="traineeList__Add-traineeBtn">
@@ -51,19 +71,20 @@ const TraineeList = () => {
             {
               field: 'email',
               label: 'Email Address',
+              format: (value) => value && value.toUpperCase(),
+            },
+            {
+              field: 'createdAt',
+              label: 'Date',
+              aline: 'right',
+              format: getDateFormatted,
             },
           ]}
+          orderBy={orderBy}
+          order={order}
+          onSort={handleSort}
+          onSelect={handleSelect}
         />
-      </div>
-
-      <div className="traineeList__trainee">
-        {traineesData.map((trainee) => (
-          <ul className="traineeList__traineeName" key={trainee.id}>
-            <Link to={`trainee/${trainee.id}`}>
-              <li>{trainee.name}</li>
-            </Link>
-          </ul>
-        ))}
       </div>
     </div>
   );
