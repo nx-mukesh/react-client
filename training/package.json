@@ -5,6 +5,8 @@
     "dependencies": {
         "@emotion/react": "^11.5.0",
         "@emotion/styled": "^11.3.0",
+        "@material-ui/data-grid": "^4.0.0-alpha.37",
+        "@material-ui/x-license": "4.0.0-alpha.36",
         "@mui/icons-material": "^5.0.4",
         "@mui/material": "^5.0.4",
         "@testing-library/jest-dom": "^5.14.1",

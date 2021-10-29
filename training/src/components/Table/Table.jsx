@@ -10,10 +10,24 @@ import {
   Paper,
   styled,
   TableSortLabel,
+  TablePagination,
+  Button,
 } from '@mui/material';
-
 const GenericTable = (props) => {
-  const { id, columns, data, orderBy, order, onSort, onSelect } = props;
+  const {
+    id,
+    columns,
+    data,
+    orderBy,
+    order,
+    onSort,
+    onSelect,
+    actions,
+    count,
+    page,
+    onChangePage,
+    rowsPerPage,
+  } = props;
 
   const createSort = (property) => (event) => {
     onSort(event, property);
@@ -46,6 +60,18 @@ const GenericTable = (props) => {
             {data.val}
           </TableCell>
         ))}
+        {/* {actions.map((item, index) => ( */}
+          <TableCell key={index}>
+              <Button onClick={actions[0].handler}>
+                {actions[0].icon}
+              </Button>
+          </TableCell>
+          <TableCell key={index}>
+              <Button onClick={actions[1].handler}>
+                {actions[1].icon}
+              </Button>
+          </TableCell>
+        {/* ))} */}
       </StyledTableRow>
     );
   });
@@ -76,6 +102,13 @@ const GenericTable = (props) => {
         </TableHead>
         <TableBody>{newData}</TableBody>
       </Table>
+      <TablePagination
+        component="div"
+        count={count}
+        page={page}
+        onPageChange={onChangePage}
+        rowsPerPage={rowsPerPage}
+      />
     </TableContainer>
   );
 };
@@ -87,7 +120,12 @@ Table.prototype = {
   orderBy: PropTypes.string,
   order: PropTypes.string,
   onSort: PropTypes.func,
-  onSelect: PropTypes.fun,
+  onSelect: PropTypes.func,
+  page: PropTypes.number,
+  count: PropTypes.number,
+  action: PropTypes.func,
+  rowsPerPage: PropTypes.number,
+  handleChangePage: PropTypes.func,
 };
 Table.defaultProps = {
   id: '',
@@ -95,7 +133,11 @@ Table.defaultProps = {
   data: [],
   orderBy: '',
   order: 'asc',
+  page: 0,
+  rowsPerPage: 100,
+  action: () => {},
   onSort: () => {},
   onSelect: () => {},
+  onChangePage: () => {},
 };
 export default GenericTable;

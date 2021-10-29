@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import { GenericTable } from '../../components';
 import { AddDialog } from './components';
 import traineesData from './data/trainee';
 
