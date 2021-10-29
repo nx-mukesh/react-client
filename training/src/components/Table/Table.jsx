@@ -8,14 +8,21 @@ import {
   TableHead,
   TableRow,
   Paper,
+  styled,
+  TableSortLabel,
 } from '@mui/material';
+
 const GenericTable = (props) => {
-  const { id, columns, data } = props;
+  const { id, columns, data, orderBy, order, onSort, onSelect } = props;
+
+  const createSort = (property) => (event) => {
+    onSort(event, property);
+  };
   const newData = data.map((row, index) => {
     let rowData = [];
     let i = 0;
     for (const key in row) {
-      if (key === 'name' || key === 'email') {
+      if (key !== 'id') {
         rowData.push({
           key: columns[i],
           val: row[key],
@@ -23,15 +30,23 @@ const GenericTable = (props) => {
         i++;
       }
     }
+    const StyledTableRow = styled(TableRow)(({ theme }) => ({
+      '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+      },
+      // hide last border
+      '&:last-child td, &:last-child th': {
+        border: 0,
+      },
+    }));
     return (
-      <TableRow>
+      <StyledTableRow hover>
         {rowData.map((data, index) => (
           <TableCell key={index} aline={data.key.aline}>
             {data.val}
-            {console.log(data)}
           </TableCell>
         ))}
-      </TableRow>
+      </StyledTableRow>
     );
   });
 
@@ -39,10 +54,22 @@ const GenericTable = (props) => {
     <TableContainer component={Paper}>
       <Table>
         <TableHead>
-          <TableRow>
-            {columns.map((col, index) => (
-              <TableCell key={`${id}${index}`} aline={col.aline}>
-                {col.label}
+          <TableRow hover>
+            {columns.map((col) => (
+              <TableCell
+                key={col.id}
+                align={col.numeric ? 'right' : 'left'}
+                padding={col.disablePadding ? 'none' : 'normal'}
+                sortDirection={orderBy === col.id ? order : false}
+                // onClick={createSort(col.id)}
+              >
+                <TableSortLabel
+                  active={orderBy === col.id}
+                  direction={order ? order : 'asc'}
+                  onClick={createSort(col.id)}
+                >
+                  {col.label}
+                </TableSortLabel>
               </TableCell>
             ))}
           </TableRow>
@@ -57,10 +84,18 @@ Table.prototype = {
   id: PropTypes.string,
   columns: PropTypes.array,
   data: PropTypes.array,
+  orderBy: PropTypes.string,
+  order: PropTypes.string,
+  onSort: PropTypes.func,
+  onSelect: PropTypes.fun,
 };
 Table.defaultProps = {
   id: '',
   column: [{ field: '', label: '', align: 'center' }],
   data: [],
+  orderBy: '',
+  order: 'asc',
+  onSort: () => {},
+  onSelect: () => {},
 };
 export default GenericTable;
