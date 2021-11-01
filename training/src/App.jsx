@@ -1,11 +1,22 @@
 import React from 'react';
 import { BrowserRouter, Switch, Redirect } from 'react-router-dom';
 import { AuthRoute, PrivateRoute } from './routes';
-import { InputDemo, Login, TextFieldDemo, TraineeList, Trainee, TraineeDetail, ChildrenDemo, NotMatch } from './pages';
+import {
+  InputDemo,
+  Login,
+  TextFieldDemo,
+  TraineeList,
+  Trainee,
+  TraineeDetail,
+  ChildrenDemo,
+  NotMatch,
+} from './pages';
+import { SnackBarProvider } from './context'
 
 const App = () => {
   return (
     <BrowserRouter>
+      <SnackBarProvider>
       <Switch>
         <PrivateRoute exact path="/" component={Trainee} />
         <PrivateRoute exact path="/trainee" component={TraineeList} />
@@ -17,6 +28,7 @@ const App = () => {
         <AuthRoute exact path="/login" component={Login} />
         <Redirect to="/login" />
       </Switch>
+      </SnackBarProvider>
     </BrowserRouter>
   );
 };

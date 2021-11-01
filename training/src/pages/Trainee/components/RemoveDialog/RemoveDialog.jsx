@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Button,
   Dialog,
@@ -7,8 +7,14 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
+import { SnackContext } from '../../../../context';
 
+const SnackDeleteProps = {
+  message: 'Trainee data deleted',
+  status: 'warning',
+};
 const RemoveDialog = (props) => {
+  const WarnSnackBar = useContext(SnackContext);
   const { open, onClose } = props;
   return (
     <div className="removeDialog">
@@ -26,7 +32,7 @@ const RemoveDialog = (props) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
-          <Button onClick={onClose} autoFocus>
+          <Button onClick={()=>WarnSnackBar(SnackDeleteProps)} autoFocus>
             Delete
           </Button>
         </DialogActions>
