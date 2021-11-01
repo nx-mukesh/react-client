@@ -32,84 +32,72 @@ const GenericTable = (props) => {
   const createSort = (property) => (event) => {
     onSort(event, property);
   };
-  const newData = data.map((row, index) => {
-    let rowData = [];
-    let i = 0;
-    for (const key in row) {
-      if (key !== 'id') {
-        rowData.push({
-          key: columns[i],
-          val: row[key],
-        });
-        i++;
-      }
-    }
-    const StyledTableRow = styled(TableRow)(({ theme }) => ({
-      '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover,
-      },
-      // hide last border
-      '&:last-child td, &:last-child th': {
-        border: 0,
-      },
-    }));
-    return (
-      <StyledTableRow hover>
-        {rowData.map((data, index) => (
-          <TableCell key={index} aline={data.key.aline}>
-            {data.val}
-          </TableCell>
-        ))}
-        {/* {actions.map((item, index) => ( */}
-          <TableCell key={index}>
-              <Button onClick={actions[0].handler}>
-                {actions[0].icon}
-              </Button>
-          </TableCell>
-          <TableCell key={index}>
-              <Button onClick={actions[1].handler}>
-                {actions[1].icon}
-              </Button>
-          </TableCell>
-        {/* ))} */}
-      </StyledTableRow>
-    );
-  });
-
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+      border: 0,
+    },
+  }));
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow hover>
-            {columns.map((col) => (
-              <TableCell
-                key={col.id}
-                align={col.numeric ? 'right' : 'left'}
-                padding={col.disablePadding ? 'none' : 'normal'}
-                sortDirection={orderBy === col.id ? order : false}
-                // onClick={createSort(col.id)}
-              >
-                <TableSortLabel
-                  active={orderBy === col.id}
-                  direction={order ? order : 'asc'}
-                  onClick={createSort(col.id)}
+    <Paper sx={{ width: '100%' }}>
+      <TableContainer sx={{ maxHeight: 440 }}>
+        <Table stickyHeader aria-label="sticky table">
+          <TableHead>
+            <StyledTableRow>
+              {columns.map((column) => (
+                <TableCell
+                  key={column.field}
+                  align={column.align}
                 >
-                  {col.label}
-                </TableSortLabel>
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>{newData}</TableBody>
-      </Table>
+                  <TableSortLabel
+                    active={orderBy}
+                    direction={order ? order : 'asc'}
+                    onClick={createSort(column.id)}
+                  >
+                    {column.label}
+                  </TableSortLabel>
+                </TableCell>
+              ))}
+            </StyledTableRow>
+          </TableHead>
+          <TableBody>
+            {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+              return (
+                <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                  {columns.map((column) => {
+                    const value = row[column.field];
+                    return (
+                      <TableCell key={column.field} align={column.align}>
+                        {column.format && typeof value === 'number' ? column.format(value) : value}
+                      </TableCell>
+                    );
+                  })}
+                  {actions.map((action) => {
+                    return (
+                      <TableCell>
+                        <Button type="submit" value={row} onClick={action.handler}>
+                          {action.icon}
+                        </Button>
+                      </TableCell>
+                    );
+                  })}
+                </StyledTableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
       <TablePagination
         component="div"
         count={count}
+        rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={onChangePage}
-        rowsPerPage={rowsPerPage}
       />
-    </TableContainer>
+    </Paper>
   );
 };
 
