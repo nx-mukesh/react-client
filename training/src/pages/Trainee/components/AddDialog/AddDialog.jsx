@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { TraineeSchema } from '../../../../lib/utils/helper';
 import {
   Button,
@@ -17,6 +17,7 @@ import {
 } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { SnackContext } from '../../../../context';
 
 const AddDialog = (props) => {
   const [input, setInput] = useState({
@@ -31,6 +32,7 @@ const AddDialog = (props) => {
   });
   const [enable, setEnable] = useState(true);
   const [touched, setTouched] = useState({});
+  const AddSnack = useContext(SnackContext);
 
   const { open, onClose, onSubmit } = props;
 
@@ -181,7 +183,12 @@ const AddDialog = (props) => {
                   type="submit"
                   variant="contained"
                   color="primary"
-                  onClick={onClose}
+                  onClick={() =>
+                    AddSnack({
+                      message: 'Trainee Added successfully',
+                      status: 'success',
+                    })
+                  }
                   disabled={enable}
                 >
                   Submit

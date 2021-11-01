@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Button,
   TextField,
@@ -7,20 +7,20 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  useMediaQuery,
-  InputAdornment
+  InputAdornment,
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
-
-const handleClose = () => {
-  console.log('handleClosed Called');
-};
+import { SnackContext } from '../../../../context';
 
 const EditDialog = (props) => {
   const { open, onClose, handleChange, value } = props;
-  // const theme = useTheme();
-  // const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const SnackBar = useContext(SnackContext);
+
+  const SnackProps = {
+    message: 'Trainee Edited Successfully',
+    status: 'success',
+  };
   return (
     <div>
       <Dialog open={open} onClose={onClose} aria-labelledby="responsive-dialog-title">
@@ -28,7 +28,7 @@ const EditDialog = (props) => {
         <DialogContent>
           <DialogContentText>Enter your trainee details</DialogContentText>
           <TextField
-            sx={{m:1}}
+            sx={{ m: 1 }}
             label="Name"
             variant="outlined"
             required
@@ -67,7 +67,7 @@ const EditDialog = (props) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Cancel</Button>
-          <Button onClick={onClose}>Submit</Button>
+          <Button onClick={() => SnackBar(SnackProps)}>Submit</Button>
         </DialogActions>
       </Dialog>
     </div>
