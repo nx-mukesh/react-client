@@ -21,13 +21,13 @@ const App = () => {
       <SnackBarProvider>
         <ThemeProvider theme={Theme}>
           <Switch>
-            <PrivateRoute exact path="/" component={Trainee} />
+            <AuthRoute exact path="/" component={Login} />
+            <AuthRoute exact path="/login" component={Login} />
             <PrivateRoute exact path="/trainee" component={TraineeList} />
             <PrivateRoute exact path="/trainee/:id" component={TraineeDetail} />
             <PrivateRoute exact path="/text-field-demo" component={TextFieldDemo} />
             <PrivateRoute exact path="/input-demo" component={InputDemo} />
             <PrivateRoute exact path="/children-demo" component={ChildrenDemo} />
-            <AuthRoute exact path="/login" component={Login} />
             <PrivateRoute exact path="*" component={NotMatch} />
             <Redirect to="/login" />
           </Switch>

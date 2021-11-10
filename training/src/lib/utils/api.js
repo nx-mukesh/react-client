@@ -1,15 +1,14 @@
-// import React from 'react';
 import axios from 'axios';
+const loginUrl = '/api/user/login';
 
-const callApi = () => {
-  const url = 'https://express-training.herokuapp.com/api/user/login';
-  const data = axios
-    .get(url)
-    .then((res) => console.log(res))
-    .catch((errors) => {
-      console.log(errors);
+const apiCall = async (userData) => {
+  return axios
+    .post(loginUrl, userData)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return error;
     });
-  console.log(data);
 };
-
-callApi();
+export default apiCall;
