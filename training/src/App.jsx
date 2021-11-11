@@ -16,6 +16,7 @@ import { Theme } from './theme';
 import { SnackBarProvider } from './context';
 
 const App = () => {
+  const token = localStorage.getItem('token')
   return (
     <BrowserRouter>
       <SnackBarProvider>

@@ -26,6 +26,7 @@ const Login = () => {
     password: '',
   });
   const [error, setError] = useState({});
+  const [serverError, setServerError] = useState({});
   const [loader, setLoader] = useState(false);
   const [touched, setTouched] = useState({});
   const [enable, setEnable] = useState(true);
@@ -70,20 +71,30 @@ const Login = () => {
     handleError(userInput);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoader(true);
     try {
-      apiCall(userInput).then((response) => {
-        localStorage.setItem('token', JSON.stringify(response.data.token));
+      setServerError(null);
+      setLoader(true);
+      const res = await apiCall(userInput);
+      console.log(res)
+    } catch (error) {
+      return error
+    }
+
+    apiCall(userInput)
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem('token', JSON.stringify(response.data.data.token));
         setLoader(false);
         history.push('/trainee');
+      })
+      .catch((error) => {
+        setLoader(false);
+        setEnable(true);
+        console.log(error.data);
+        // SnackBar(error.data.message);
       });
-    } catch (error) {
-      setLoader(false);
-      setEnable(true);
-      SnackBar(error.message);
-    }
   };
 
   const handleClickShowPassword = () => {
