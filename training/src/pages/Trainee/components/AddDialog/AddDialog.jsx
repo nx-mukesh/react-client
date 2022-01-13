@@ -176,7 +176,7 @@ const AddDialog = (props) => {
               </div>
 
               <DialogActions>
-                <Button type="cancel" variant="filled" onClick={onClose}>
+                <Button type="cancel" variant="filled" onClick={onClose} >
                   Cancel
                 </Button>
                 <Button

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Button from '@mui/material/Button';
 import moment from 'moment';
 import { GenericTable } from '../../components';
@@ -49,7 +50,10 @@ const TraineeList = () => {
   };
   const handleSubmit = (event, input) => {
     event.preventDefault();
-    console.log('submit', input);
+    axios
+      .post('/trainee', input)
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
   };
 
   const handleSort = (event, property) => {
