@@ -5,8 +5,11 @@ import { Button } from '@mui/material';
 import traineeData from './data/trainee';
 
 const TraineeDetail = (props) => {
-  const { id } = props.match.params;
-  const data = traineeData.filter((data) => data.id === id);
+  const { match } = props;
+  const { id } = match.params;
+  const data = traineeData.filter((record) => {
+    return record.id === id;
+  });
 
   const getDateFormatted = (date) => {
     return moment(date).format('MMMM Do YYYY, h:mm:ss a');
@@ -27,7 +30,7 @@ const TraineeDetail = (props) => {
       >
         <div
           className="traineeDetail__image"
-          style={{ margin: '2rem', width: '100px', height: '100px', border: '1px solid grey' }}
+          style={{ margin: '2rem', width: '100px', background: 'gray' }}
         >
           <img src={data[0].image} alt="" style={{ background: 'grey' }} />
         </div>

@@ -3,6 +3,8 @@ import { PropTypes } from 'prop-types';
 import { Route } from 'react-router-dom';
 import PrivateLayout from '../layouts/PrivateLayout/PrivateLayout';
 
+
+const token = localStorage.getItem(token)
 const PrivateRoute = ({ exact, path, component: Component }) => (
   <Route
     exact={exact}

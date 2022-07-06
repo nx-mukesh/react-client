@@ -1,13 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import moment from 'moment';
 import { GenericTable } from '../../components';
-import { AddDialog } from './components';
 import traineesData from './data/trainee';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { EditDialog, RemoveDialog } from './components';
-
+import { AddDialog, EditDialog, RemoveDialog } from './components';
 
 const TraineeList = () => {
   const [editOpen, setEditOpen] = useState(false);
@@ -21,7 +19,6 @@ const TraineeList = () => {
   const [count, setCount] = React.useState(100);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-
   const handleRemoveSubmit = (event, input) => {
     event.preventDefault();
     console.log(input);
@@ -31,10 +28,10 @@ const TraineeList = () => {
     console.log(input);
   };
   const handleEditChange = (event) => {
-    const {name, value} = event.target;
-    setUpdateValue({...updateValue, [name]:value})
-    console.log(updateValue)
-  }
+    const { name, value } = event.target;
+    setUpdateValue({ ...updateValue, [name]: value });
+    console.log(updateValue);
+  };
   const getDateFormatted = (date) => {
     return moment(date).format('MMMM Do YYYY, h:mm:ss a');
   };
@@ -52,7 +49,7 @@ const TraineeList = () => {
   };
   const handleSubmit = (event, input) => {
     event.preventDefault();
-    console.log('submit', input)
+    console.log('submit', input);
   };
 
   const handleSort = (event, property) => {
@@ -71,8 +68,8 @@ const TraineeList = () => {
   };
   const handleEditDialogOpen = (event) => {
     event.preventDefault();
-    const {value} = event.target;
-    console.log(value)
+    const { value } = event.target;
+    console.log(value);
     setEditOpen(true);
   };
   const handleRemoveDialogOpen = () => {
@@ -100,7 +97,13 @@ const TraineeList = () => {
         </Button>
       </div>
       <AddDialog open={Open} onClose={handleClose} onSubmit={handleSubmit} />
-      <EditDialog open={editOpen} onClose={handleEditClose} value={updateValue} handleChange={handleEditChange} onSubmit={handleEditSubmit} />
+      <EditDialog
+        open={editOpen}
+        onClose={handleEditClose}
+        value={updateValue}
+        handleChange={handleEditChange}
+        onSubmit={handleEditSubmit}
+      />
       <RemoveDialog open={removeOpen} onClose={handleRemoveClose} onSubmit={handleRemoveSubmit} />
       <div className="traineeList__table">
         <GenericTable

@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import { apiCall } from '../../lib';
 import { LoginSchema } from '../../lib/utils/helper';
 import {
   Button,
@@ -9,28 +11,33 @@ import {
   CssBaseline,
   InputAdornment,
   IconButton,
+  CircularProgress,
 } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import EmailIcon from '@mui/icons-material/Email';
 import LockRoundedIcon from '@mui/icons-material/LockRounded';
+import { SnackContext } from '../../context';
 
 const Login = () => {
+  const SnackBar = useContext(SnackContext);
   const [userInput, setUserInput] = useState({
     email: '',
     password: '',
   });
   const [error, setError] = useState({});
+  const [serverError, setServerError] = useState({});
+  const [loader, setLoader] = useState(false);
   const [touched, setTouched] = useState({});
   const [enable, setEnable] = useState(true);
   const [values, setValues] = useState({
     showPassword: false,
   });
+  const history = useHistory();
 
   useEffect(() => {
     if (touched.email && touched.password) {
       setEnable(false);
-      console.log(error);
     }
   }, [touched]);
 
@@ -62,13 +69,34 @@ const Login = () => {
     const { name } = event.target;
     setTouched({ ...touched, [name]: true });
     handleError(userInput);
-    console.log(touched);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(userInput);
+    try {
+      setServerError(null);
+      setLoader(true);
+      const res = await apiCall(userInput);
+      console.log(res)
+    } catch (error) {
+      return error
+    }
+
+    apiCall(userInput)
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem('token', JSON.stringify(response.data.data.token));
+        setLoader(false);
+        history.push('/trainee');
+      })
+      .catch((error) => {
+        setLoader(false);
+        setEnable(true);
+        console.log(error.data);
+        // SnackBar(error.data.message);
+      });
   };
+
   const handleClickShowPassword = () => {
     setValues({
       ...values,
@@ -139,7 +167,6 @@ const Login = () => {
                   onChange={handleOnChange}
                   helperText={error.password}
                   InputProps={{
-                    // <-- This is where the toggle button is added.
                     startAdornment: (
                       <InputAdornment position="start">
                         <IconButton
@@ -154,8 +181,14 @@ const Login = () => {
                   }}
                 />
               </div>
-              <Button variant="contained" type="submit" fullWidth disabled={enable}>
-                SIGN IN
+              <Button
+                variant="contained"
+                type="submit"
+                fullWidth
+                disabled={enable}
+                style={{ color: 'white' }}
+              >
+                {loader ? <CircularProgress /> : 'SIGN IN'}
               </Button>
             </form>
           </FormControl>
